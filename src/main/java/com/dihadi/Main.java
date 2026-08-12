@@ -1,0 +1,12 @@
+package com.dihadi;
+
+import com.dihadi.view.WelcomePage;
+
+import javafx.application.Application;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Application.launch(WelcomePage.class, args);
+    }
+}
