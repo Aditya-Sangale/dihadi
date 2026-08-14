@@ -12,5 +12,6 @@
         "d:\\MY PROJECTS\\Java Project\\javafx-sdk-21.0.12\\lib\\javafx.web.jar",
         "d:\\MY PROJECTS\\Java Project\\javafx-sdk-21.0.12\\lib\\javafx-swt.jar"
     ],
-    "java.configuration.updateBuildConfiguration": "interactive"
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "java.debug.settings.onBuildFailureProceed": true
 }
