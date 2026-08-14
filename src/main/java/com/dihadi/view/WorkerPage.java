@@ -1,5 +1,13 @@
 package com.dihadi.view;
 
+import com.dihadi.view.worker.GeneralLabourPage;
+import com.dihadi.view.worker.Site_Supervisor;
+import com.dihadi.view.worker.ElectricianPage;
+import com.dihadi.view.worker.MasonPage;
+import com.dihadi.view.worker.PlumberPage;
+import com.dihadi.view.worker.CarpenterPage;
+import com.dihadi.view.worker.ITI_Technician;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -30,12 +38,14 @@ import javafx.util.Duration;
 
 /** Worker category page with the WelcomePage visual language. */
 public class WorkerPage extends Application {
-    private static final String[] NAMES = {"General Labour", "Mason", "Painter", "Plumber", "Welder", "Carpenter", "Electrician", "Site Supervisor"};
-    private static final String[] IMAGES = {"/assets/images/generalLabour.jpeg", "/assets/images/mason.jpeg", "/assets/images/painter.jpeg", "/assets/images/plumber.jpeg", "/assets/images/welder.jpeg", "/assets/images/carpenter.jpeg", "/assets/images/electrician.jpeg", "/assets/images/sitesuperviser.jpeg"};
-    private static final String[] DETAILS = {"Essential support for smooth, safe site operations.", "Brickwork, stonework, and concrete finishing.", "Interior and exterior surface preparation and painting.", "Piping, drainage, repair, and installation work.", "Fabrication, structural welding, and metalwork.", "Woodwork, framing, fitting,\nand finishing details.", "Electrical installation, maintenance, and repairs.", "Site coordination, quality checks, and team guidance."};
+    private static final String[] NAMES = {"General Labour", "Mason", "Painter", "Plumber", "ITI/Technician", "Carpenter", "Electrician", "Site Supervisor"};
+    private static final String[] IMAGES = {"/assets/images/generalLabour.jpeg", "/assets/images/mason.jpeg", "/assets/images/painter.jpeg", "/assets/images/plumber.jpeg", "/assets/images/worker/iti/skill-00.jpg", "/assets/images/carpenter.jpeg", "/assets/images/electrician.jpeg", "/assets/images/sitesuperviser.jpeg"};
+    private static final String[] DETAILS = {"Essential support for smooth, safe site operations.", "Brickwork, stonework, and concrete finishing.", "Interior and exterior surface preparation and painting.", "Piping, drainage, repair, and installation work.", "Fabrication, structural welding, and metalwork.", "Woodwork, framing, fitting,\nand finishing details.", "Electrical installation, maintenance, and repairs.", "Site coordination, work quality, and team guidance."};
     private ImageView heroImage;
     private Timeline heroSlider;
     private int heroImageIndex;
+    private Runnable homeAction;
+    private Runnable aboutPageAction;
 
     public Scene getWorkerScene(Runnable backAction) {
         return getWorkerScene(backAction, null);
@@ -44,6 +54,8 @@ public class WorkerPage extends Application {
     /** Builds the worker page and optionally supplies navigation for the About Us tab. */
     public Scene getWorkerScene(Runnable backAction, Runnable aboutAction) {
         stopHeroSlider();
+        homeAction = backAction;
+        aboutPageAction = aboutAction;
         Label eyebrow = label("WORKERS FOR EVERY JOB", "-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: #735c00; -fx-letter-spacing: 1.3px;");
         Label title = label("Find work that values\nyour skills.", "-fx-font-size: 40px; -fx-font-weight: 800; -fx-text-fill: #3a3027; -fx-line-spacing: 4px;");
         Label intro = label("Choose your trade and explore work opportunities that match your experience. Dihadi helps skilled workers connect with the right projects.", "-fx-font-size: 16px; -fx-text-fill: #4d4635; -fx-line-spacing: 3px;");
@@ -116,8 +128,38 @@ public class WorkerPage extends Application {
         Label name = label(NAMES[i], "-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #3a3027;");
         Label detail = label(DETAILS[i], "-fx-font-size: 13px; -fx-text-fill: #3c3c3c;"); detail.setWrapText(true); detail.setPrefWidth(238);
         Button view = primaryButton("View Roles"); view.setMaxWidth(Double.MAX_VALUE); view.setOnAction(e -> clicked(NAMES[i] + " View Roles"));
+        if (i == 0) {
+            view.setOnAction(e -> showGeneralLabour());
+        }
+        if (i == 7) {
+            view.setOnAction(e -> showSiteSupervisor());
+        }
+        if (i == 6) {
+            view.setOnAction(e -> showElectrician());
+        }
+        if (i == 1) view.setOnAction(e -> showMason());
+        if (i == 3) view.setOnAction(e -> showPlumber());
+        if (i == 5) view.setOnAction(e -> showCarpenter());
+        if (i == 4) view.setOnAction(e -> showItiTechnician());
         VBox card = new VBox(12, picture, name, detail, view); card.setAlignment(Pos.TOP_LEFT); card.setPrefSize(270, 325); card.setPadding(new Insets(16));
-        card.setStyle("-fx-background-color: #fbf3e5; -fx-background-radius: 20px; -fx-border-color: rgba(115,92,0,0.20); -fx-border-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(58,48,39,0.10), 16, 0, 0, 5px);"); return card;
+        card.setStyle("-fx-background-color: #fbf3e5; -fx-background-radius: 20px; -fx-border-color: rgba(115,92,0,0.20); -fx-border-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(58,48,39,0.10), 16, 0, 0, 5px);");
+        if (i == 0) {
+            card.setCursor(javafx.scene.Cursor.HAND);
+            card.setOnMouseClicked(e -> showGeneralLabour());
+        }
+        if (i == 7) {
+            card.setCursor(javafx.scene.Cursor.HAND);
+            card.setOnMouseClicked(e -> showSiteSupervisor());
+        }
+        if (i == 6) {
+            card.setCursor(javafx.scene.Cursor.HAND);
+            card.setOnMouseClicked(e -> showElectrician());
+        }
+        if (i == 1) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showMason()); }
+        if (i == 3) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showPlumber()); }
+        if (i == 5) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showCarpenter()); }
+        if (i == 4) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showItiTechnician()); }
+        return card;
     }
 
     private VBox createDesktopFooter() {
@@ -169,6 +211,30 @@ public class WorkerPage extends Application {
     private void startHeroSlider() { heroSlider = new Timeline(new KeyFrame(Duration.seconds(3), event -> showNextHeroImage())); heroSlider.setCycleCount(Timeline.INDEFINITE); heroSlider.play(); }
     private void showNextHeroImage() { heroImageIndex = (heroImageIndex + 1) % IMAGES.length; if (heroImage != null) heroImage.setImage(loadImage(IMAGES[heroImageIndex])); }
     private void stopHeroSlider() { if (heroSlider != null) heroSlider.stop(); }
+    private void showGeneralLabour() {
+        stopHeroSlider();
+        Stage stage = (Stage) heroImage.getScene().getWindow();
+        stage.setScene(new GeneralLabourPage().getGeneralLabourScene(
+                () -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)),
+                homeAction,
+                aboutPageAction));
+    }
+    private void showSiteSupervisor() {
+        stopHeroSlider();
+        Stage stage = (Stage) heroImage.getScene().getWindow();
+        stage.setScene(new Site_Supervisor().getSiteSupervisorScene(
+                () -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)), homeAction, aboutPageAction));
+    }
+    private void showElectrician() {
+        stopHeroSlider();
+        Stage stage = (Stage) heroImage.getScene().getWindow();
+        stage.setScene(new ElectricianPage().getElectricianScene(
+                () -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)), homeAction, aboutPageAction));
+    }
+    private void showMason() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new MasonPage().getMasonScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)), homeAction, aboutPageAction)); }
+    private void showPlumber() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new PlumberPage().getPlumberScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)), homeAction, aboutPageAction)); }
+    private void showCarpenter() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new CarpenterPage().getCarpenterScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
+    private void showItiTechnician() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new ITI_Technician().getItiTechnicianScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
     private void clicked(String action) { System.out.println(action + " clicked"); }
     private void setWelcomeBackground(StackPane root) { var resource = getClass().getResource("/assets/images/background image.jpeg"); if (resource == null) { root.setBackground(new Background(new BackgroundFill(Color.web("#f3e7ce"), CornerRadii.EMPTY, Insets.EMPTY))); return; } Image background = new Image(resource.toExternalForm()); BackgroundImage bg = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)); root.setBackground(new Background(new BackgroundFill[] {new BackgroundFill(Color.web("#f3e7ce99"), CornerRadii.EMPTY, Insets.EMPTY)}, new BackgroundImage[] {bg})); }
 
