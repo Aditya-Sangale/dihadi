@@ -1,5 +1,7 @@
 package com.dihadi.view;
 
+import com.dihadi.view.signIn.WorkerProfile;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -48,7 +50,12 @@ public class WorkerPage extends Application {
         Label title = label("Find work that values\nyour skills.", "-fx-font-size: 40px; -fx-font-weight: 800; -fx-text-fill: #3a3027; -fx-line-spacing: 4px;");
         Label intro = label("Choose your trade and explore work opportunities that match your experience. Dihadi helps skilled workers connect with the right projects.", "-fx-font-size: 16px; -fx-text-fill: #4d4635; -fx-line-spacing: 3px;");
         intro.setWrapText(true); intro.setMaxWidth(360);
-        Button profile = primaryButton("Create Worker Profile"); profile.setOnAction(e -> clicked("Create Worker Profile"));
+        Button profile = primaryButton("Create Worker Profile");
+        profile.setOnAction(e -> {
+            javafx.stage.Stage stage = (javafx.stage.Stage) profile.getScene().getWindow();
+            WorkerProfile workerProfile = new WorkerProfile();
+            stage.setScene(workerProfile.getProfileScene(() -> stage.setScene(getWorkerScene(backAction, aboutAction))));
+        });
         Button learn = outlineButton("How it works"); learn.setOnAction(e -> clicked("How it works"));
         VBox copy = new VBox(16, eyebrow, title, intro, new HBox(12, profile, learn)); copy.setAlignment(Pos.CENTER_LEFT); copy.setPrefWidth(360);
 
