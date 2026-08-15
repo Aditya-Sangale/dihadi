@@ -10,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,6 +53,7 @@ public class WelcomePage extends Application{
         logoView.setFitHeight(62);
         logoView.setPreserveRatio(true);
         logoView.setSmooth(true);
+        logoView.setViewport(new Rectangle2D(380, 0, 840, 840));
 
         try {
             String logoPath = "/assets/logo/dihadi logo.jpeg";
@@ -208,29 +210,10 @@ public class WelcomePage extends Application{
         Homestage.show();
     }
 
-    /**
-     * Temporary navigation destination. Replace this method's content when the
-     * real next page is ready.
-     */
+    /** Opens HomePage and its navigation after the welcome interaction. */
     private void showNextPage(Stage stage) {
-        Label title = new Label("Your next page will appear here");
-        title.setStyle("-fx-font-size: 30px; -fx-font-weight: 800; -fx-text-fill: #111111; -fx-font-family: 'Georgia', serif;");
-
-        Label message = new Label("Welcome to Dihadi. Select this screen later for your dashboard, login, or registration page.");
-        message.setWrapText(true);
-        message.setMaxWidth(560);
-        message.setStyle("-fx-font-size: 17px; -fx-text-fill: #404040; -fx-font-family: 'Segoe UI', sans-serif;");
-
-        VBox nextPageContent = new VBox(18, title, message);
-        nextPageContent.setAlignment(Pos.CENTER);
-        nextPageContent.setPadding(new Insets(40));
-
-        StackPane nextPageRoot = new StackPane(nextPageContent);
-        nextPageRoot.setBackground(new Background(new BackgroundFill(Color.web("#f5f7fb"), CornerRadii.EMPTY, Insets.EMPTY)));
-
-        stage.setScene(new Scene(nextPageRoot));
+        stage.setScene(new HomePage(stage).getHomeScene());
     }
-
     private Path resolveResourceToFile(String resourcePath, String suffix) throws IOException, URISyntaxException {
         var resource = getClass().getResource(resourcePath);
         if (resource == null) {
