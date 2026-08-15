@@ -7,6 +7,7 @@ import com.dihadi.view.worker.MasonPage;
 import com.dihadi.view.worker.PlumberPage;
 import com.dihadi.view.worker.CarpenterPage;
 import com.dihadi.view.worker.ITI_Technician;
+import com.dihadi.view.worker.PainterPage;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -39,7 +40,7 @@ import javafx.util.Duration;
 /** Worker category page with the WelcomePage visual language. */
 public class WorkerPage extends Application {
     private static final String[] NAMES = {"General Labour", "Mason", "Painter", "Plumber", "ITI/Technician", "Carpenter", "Electrician", "Site Supervisor"};
-    private static final String[] IMAGES = {"/assets/images/generalLabour.jpeg", "/assets/images/mason.jpeg", "/assets/images/painter.jpeg", "/assets/images/plumber.jpeg", "/assets/images/worker/iti/skill-00.jpg", "/assets/images/carpenter.jpeg", "/assets/images/electrician.jpeg", "/assets/images/sitesuperviser.jpeg"};
+    private static final String[] IMAGES = {"/assets/images/generalLabour.jpeg", "/assets/images/mason.jpeg", "/assets/images/worker/painter/skill-02.jpg", "/assets/images/plumber.jpeg", "/assets/images/welder.jpeg", "/assets/images/carpenter.jpeg", "/assets/images/electrician.jpeg", "/assets/images/sitesuperviser.jpeg"};
     private static final String[] DETAILS = {"Essential support for smooth, safe site operations.", "Brickwork, stonework, and concrete finishing.", "Interior and exterior surface preparation and painting.", "Piping, drainage, repair, and installation work.", "Fabrication, structural welding, and metalwork.", "Woodwork, framing, fitting,\nand finishing details.", "Electrical installation, maintenance, and repairs.", "Site coordination, work quality, and team guidance."};
     private ImageView heroImage;
     private Timeline heroSlider;
@@ -141,6 +142,7 @@ public class WorkerPage extends Application {
         if (i == 3) view.setOnAction(e -> showPlumber());
         if (i == 5) view.setOnAction(e -> showCarpenter());
         if (i == 4) view.setOnAction(e -> showItiTechnician());
+        if (i == 2) view.setOnAction(e -> showPainter());
         VBox card = new VBox(12, picture, name, detail, view); card.setAlignment(Pos.TOP_LEFT); card.setPrefSize(270, 325); card.setPadding(new Insets(16));
         card.setStyle("-fx-background-color: #fbf3e5; -fx-background-radius: 20px; -fx-border-color: rgba(115,92,0,0.20); -fx-border-radius: 20px; -fx-effect: dropshadow(gaussian, rgba(58,48,39,0.10), 16, 0, 0, 5px);");
         if (i == 0) {
@@ -159,6 +161,7 @@ public class WorkerPage extends Application {
         if (i == 3) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showPlumber()); }
         if (i == 5) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showCarpenter()); }
         if (i == 4) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showItiTechnician()); }
+        if (i == 2) { card.setCursor(javafx.scene.Cursor.HAND); card.setOnMouseClicked(e -> showPainter()); }
         return card;
     }
 
@@ -235,6 +238,7 @@ public class WorkerPage extends Application {
     private void showPlumber() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new PlumberPage().getPlumberScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)), homeAction, aboutPageAction)); }
     private void showCarpenter() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new CarpenterPage().getCarpenterScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
     private void showItiTechnician() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new ITI_Technician().getItiTechnicianScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
+    private void showPainter() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new PainterPage().getPainterScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
     private void clicked(String action) { System.out.println(action + " clicked"); }
     private void setWelcomeBackground(StackPane root) { var resource = getClass().getResource("/assets/images/background image.jpeg"); if (resource == null) { root.setBackground(new Background(new BackgroundFill(Color.web("#f3e7ce"), CornerRadii.EMPTY, Insets.EMPTY))); return; } Image background = new Image(resource.toExternalForm()); BackgroundImage bg = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)); root.setBackground(new Background(new BackgroundFill[] {new BackgroundFill(Color.web("#f3e7ce99"), CornerRadii.EMPTY, Insets.EMPTY)}, new BackgroundImage[] {bg})); }
 

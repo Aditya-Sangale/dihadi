@@ -95,7 +95,7 @@ public class HomePage extends Application {
 
         HBox navigation = new HBox(9,
                 navButton("Home", true, this::showHome),
-                navButton("Business", false, () -> comingSoon("Business", "Business tools are coming soon.")),
+                navButton("Business", false, this::showBusiness),
                 navButton("Worker", false, this::showWorker),
                 navButton("Recruiter", false, () -> comingSoon("Recruiter", "Recruiter tools are coming soon.")),
                 navButton("About Us", false, this::showAbout),
@@ -229,8 +229,9 @@ public class HomePage extends Application {
     }
 
     private void showWorker() { stopSlider(); primaryStage.setScene(new WorkerPage().getWorkerScene(this::showHome, this::showAbout)); }
+    private void showBusiness() { stopSlider(); primaryStage.setScene(new BusinessPage().getBusinessScene(this::showHome, this::showWorker)); }
     private void showAbout() { stopSlider(); primaryStage.setScene(new AboutUs().getAboutScene(this::showHome, this::showWorker)); }
-    private void showContact() { comingSoon("Contact Us", "Call 9561789599 or email info@meridihadi.com."); }
+    private void showContact() { stopSlider(); primaryStage.setScene(new ContactUs().getContactScene(this::showHome, this::showBusiness, this::showWorker, this::showAbout)); }
     private void comingSoon(String title, String message) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(message); alert.show(); }
     private void startSlider() { imageSlider = new Timeline(new KeyFrame(Duration.seconds(3), event -> { imageIndex = (imageIndex + 1) % HERO_IMAGES.length; heroImage.setImage(loadImage(HERO_IMAGES[imageIndex])); })); imageSlider.setCycleCount(Timeline.INDEFINITE); imageSlider.play(); }
     private void stopSlider() { if (imageSlider != null) imageSlider.stop(); }
