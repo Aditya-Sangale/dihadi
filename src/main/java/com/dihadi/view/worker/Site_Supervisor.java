@@ -78,7 +78,12 @@ public class Site_Supervisor {
         Button contact = navButton("Contact Us", false);
         HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
-        HBox account = new HBox(14, outlineButton("Login"), primaryButton("Sign Up"));
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
+        Button login = outlineButton("Login"), signUp = primaryButton("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(), () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(14, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane bar = new BorderPane();
         bar.setLeft(brand);

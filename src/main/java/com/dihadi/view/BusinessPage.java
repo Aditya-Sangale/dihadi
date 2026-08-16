@@ -47,8 +47,11 @@ public class BusinessPage {
         scroll.setStyle("-fx-background-color:transparent;-fx-border-width:0;");
         BorderPane page = new BorderPane(scroll);
         page.setTop(header());
-        page.setStyle("-fx-background-color:#fff8f0;");
-        return new Scene(page, 1400, 780);
+        page.setStyle("-fx-background-color:transparent;");
+        StackPane root = new StackPane(page);
+        root.setPadding(new Insets(24));
+        root.setStyle("-fx-background-color:#f3e7ce;");
+        return new Scene(root, 1400, 780);
     }
 
     private BorderPane header() {
@@ -59,14 +62,14 @@ public class BusinessPage {
                 "-fx-font-family:'Georgia';-fx-font-size:25px;-fx-font-weight:800;-fx-text-fill:#735c00;"));
         brand.setAlignment(Pos.CENTER_LEFT);
 
-        Button home = nav("Home", false);
-        home.setOnAction(e -> run(homeAction));
-        Button worker = nav("Worker", false);
-        worker.setOnAction(e -> run(workerAction));
-        HBox navigation = new HBox(20, home, nav("Business", true), worker, nav("Recruiter", false),
-                nav("About Us", false), nav("Contact Us", false));
+        Button home = nav("Home", false), business = nav("Business", true), worker = nav("Worker", false), recruiter = nav("Recruiter", false), about = nav("About Us", false), contact = nav("Contact Us", false);
+        home.setOnAction(e -> navigate(home, "Home")); business.setOnAction(e -> navigate(business, "Business")); worker.setOnAction(e -> navigate(worker, "Worker")); recruiter.setOnAction(e -> navigate(recruiter, "Recruiter")); about.setOnAction(e -> navigate(about, "About Us")); contact.setOnAction(e -> navigate(contact, "Contact Us"));
+        HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
-        HBox account = new HBox(12, outline("Login"), primary("Sign Up"));
+        Button login = outline("Login"), signUp = primary("Sign Up");
+        login.setOnAction(e -> AppNavigator.login()); signUp.setOnAction(e -> AppNavigator.signUp((javafx.stage.Stage) signUp.getScene().getWindow(), () -> AppNavigator.open((javafx.stage.Stage) signUp.getScene().getWindow(), "Business")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
 
         BorderPane bar = new BorderPane();
@@ -77,6 +80,7 @@ public class BusinessPage {
         bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
         return bar;
     }
+    private void navigate(Button source, String destination) { AppNavigator.open((javafx.stage.Stage) source.getScene().getWindow(), destination); }
 
     private VBox hero() {
         Label eyebrow = label("ENTERPRISE WORKFORCE SOLUTIONS", smallGold());
@@ -98,7 +102,7 @@ public class BusinessPage {
         VBox section = new VBox(row);
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(76, 42, 76, 42));
-        section.setStyle("-fx-background-color:#f3e7ce;");
+        section.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return section;
     }
 
@@ -119,7 +123,7 @@ public class BusinessPage {
         VBox section = new VBox(12, title, subtitle, cards);
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(62, 42, 70, 42));
-        section.setStyle("-fx-background-color:#e1e4e8;");
+        section.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return section;
     }
 
@@ -157,7 +161,7 @@ public class BusinessPage {
         VBox section = new VBox(60, title, body);
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(70, 42, 80, 42));
-        section.setStyle("-fx-background-color:#f3e7ce;");
+        section.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return section;
     }
 
@@ -179,7 +183,7 @@ public class BusinessPage {
         VBox section = new VBox(row);
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(76, 42, 76, 42));
-        section.setStyle("-fx-background-color:#fff8f0;");
+        section.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return section;
     }
 
@@ -193,9 +197,8 @@ public class BusinessPage {
         Label one = label(first, "-fx-font-size:15px;-fx-font-weight:700;-fx-text-fill:" + text + ";");
         Label two = label(second, "-fx-font-size:15px;-fx-font-weight:700;-fx-text-fill:" + text + ";");
         Button button = new Button(action);
-        button.setStyle("-fx-background-color:" + (background.equals("#57483a") ? "#fff8f0" : "#1f1b13")
-                + ";-fx-background-radius:18px;-fx-text-fill:" + (background.equals("#57483a") ? "#1f1b13" : "#fff8f0")
-                + ";-fx-font-size:12px;-fx-font-weight:700;-fx-padding:11px 22px;-fx-cursor:hand;");
+        button.setStyle("-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#342f28;"
+                + "-fx-font-size:12px;-fx-font-weight:700;-fx-padding:11px 22px;-fx-cursor:hand;");
         VBox card = new VBox(16, heading, subtitle, divider, one, two, spacer(24), button);
         card.setAlignment(Pos.TOP_LEFT);
         card.setPadding(new Insets(44));
@@ -223,7 +226,7 @@ public class BusinessPage {
         VBox footer = new VBox(54, top, copyright);
         footer.setMaxWidth(1400);
         footer.setPadding(new Insets(56, 86, 36, 86));
-        footer.setStyle("-fx-background-color:#66584b;");
+        footer.setStyle("-fx-background-color:#343027;-fx-background-radius:20px;");
         return footer;
     }
 
@@ -304,7 +307,7 @@ public class BusinessPage {
     private Button primary(String text) {
         Button button = new Button(text);
         button.setStyle(
-                "-fx-background-color:#d4af37;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;");
+                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;");
         return button;
     }
 

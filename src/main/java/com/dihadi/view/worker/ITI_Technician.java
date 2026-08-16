@@ -99,8 +99,13 @@ public class ITI_Technician {
         Label brand = label("DIHADI", "-fx-font-family:'Georgia';-fx-font-size:25px;-fx-font-weight:800;-fx-text-fill:#735c00;");
         HBox navigation = new HBox(20, navButton("Home", false), navButton("Business", false), navButton("Worker", true), navButton("Recruiter", false), navButton("About Us", false), navButton("Contact Us", false));
         navigation.setAlignment(Pos.CENTER);
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
         navigation.getChildren().get(2).setOnMouseClicked(event -> { if (backAction != null) backAction.run(); });
-        HBox account = new HBox(12, outline("Login"), primary("Sign Up"));
+        Button login = outline("Login"), signUp = primary("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(), () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane header = new BorderPane();
         header.setLeft(brand);

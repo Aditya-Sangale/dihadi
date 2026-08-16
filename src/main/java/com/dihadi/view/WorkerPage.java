@@ -8,6 +8,7 @@ import com.dihadi.view.worker.PlumberPage;
 import com.dihadi.view.worker.CarpenterPage;
 import com.dihadi.view.worker.ITI_Technician;
 import com.dihadi.view.worker.PainterPage;
+import com.dihadi.view.worker.WokerSignUp;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -61,7 +62,7 @@ public class WorkerPage extends Application {
         Label title = label("Find work that values\nyour skills.", "-fx-font-size: 40px; -fx-font-weight: 800; -fx-text-fill: #3a3027; -fx-line-spacing: 4px;");
         Label intro = label("Choose your trade and explore work opportunities that match your experience. Dihadi helps skilled workers connect with the right projects.", "-fx-font-size: 16px; -fx-text-fill: #4d4635; -fx-line-spacing: 3px;");
         intro.setWrapText(true); intro.setMaxWidth(360);
-        Button profile = primaryButton("Create Worker Profile"); profile.setOnAction(e -> clicked("Create Worker Profile"));
+        Button profile = primaryButton("Create Worker Profile"); profile.setOnAction(e -> showWorkerSignUp());
         Button learn = outlineButton("How it works"); learn.setOnAction(e -> clicked("How it works"));
         VBox copy = new VBox(16, eyebrow, title, intro, new HBox(12, profile, learn)); copy.setAlignment(Pos.CENTER_LEFT); copy.setPrefWidth(360);
 
@@ -95,20 +96,21 @@ public class WorkerPage extends Application {
         Label title = label("DIHADI", "-fx-font-size: 25px; -fx-font-weight: 800; -fx-text-fill: #735c00; -fx-letter-spacing: 1px;");
         HBox brand = new HBox(10, logo, title); brand.setAlignment(Pos.CENTER_LEFT);
 
-        Button home = navButton("Home", false); home.setOnAction(e -> { clicked("Home"); if (backAction != null) backAction.run(); });
-        Button business = navButton("Business", false); business.setOnAction(e -> clicked("Business page"));
-        Button worker = navButton("Worker", true); worker.setOnAction(e -> clicked("Worker page"));
-        Button recruiter = navButton("Recruiter", false); recruiter.setOnAction(e -> clicked("Recruiter page"));
-        Button about = navButton("About Us", false); about.setOnAction(e -> {
-            clicked("About Us page");
-            if (aboutAction != null) aboutAction.run();
-        });
-        Button contact = navButton("Contact Us", false); contact.setOnAction(e -> clicked("Contact Us page"));
+        Button home = navButton("Home", false); home.setOnAction(e -> navigate("Home"));
+        Button business = navButton("Business", false); business.setOnAction(e -> navigate("Business"));
+        Button worker = navButton("Worker", true); worker.setOnAction(e -> navigate("Worker"));
+        Button recruiter = navButton("Recruiter", false); recruiter.setOnAction(e -> navigate("Recruiter"));
+        Button about = navButton("About Us", false); about.setOnAction(e -> navigate("About Us"));
+        Button contact = navButton("Contact Us", false); contact.setOnAction(e -> navigate("Contact Us"));
         HBox navigation = new HBox(12, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
 
-        Button login = outlineButton("Login"); login.setOnAction(e -> clicked("Login"));
-        Button signUp = primaryButton("Sign Up"); signUp.setOnAction(e -> clicked("Sign Up"));
+        // Account actions are intentionally inactive on this landing page.
+        // "Create Worker Profile" is the single entry point to worker signup here.
+        Button login = outlineButton("Login");
+        Button signUp = primaryButton("Sign Up");
+        login.setMouseTransparent(true);
+        signUp.setMouseTransparent(true);
         HBox accountActions = new HBox(10, login, signUp); accountActions.setAlignment(Pos.CENTER_RIGHT);
 
         BorderPane header = new BorderPane(); header.setLeft(brand); header.setCenter(navigation); header.setRight(accountActions);
@@ -239,6 +241,16 @@ public class WorkerPage extends Application {
     private void showCarpenter() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new CarpenterPage().getCarpenterScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
     private void showItiTechnician() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new ITI_Technician().getItiTechnicianScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
     private void showPainter() { stopHeroSlider(); Stage stage=(Stage)heroImage.getScene().getWindow(); stage.setScene(new PainterPage().getPainterScene(() -> stage.setScene(getWorkerScene(homeAction, aboutPageAction)))); }
+    private void showWorkerSignUp() {
+        stopHeroSlider();
+        Stage stage = (Stage) heroImage.getScene().getWindow();
+        stage.setScene(new WokerSignUp().getSignUpScene(
+                () -> stage.setScene(getWorkerScene(homeAction, aboutPageAction))));
+    }
+    private void navigate(String destination) {
+        Stage stage = (Stage) heroImage.getScene().getWindow();
+        AppNavigator.open(stage, destination);
+    }
     private void clicked(String action) { System.out.println(action + " clicked"); }
     private void setWelcomeBackground(StackPane root) { var resource = getClass().getResource("/assets/images/background image.jpeg"); if (resource == null) { root.setBackground(new Background(new BackgroundFill(Color.web("#f3e7ce"), CornerRadii.EMPTY, Insets.EMPTY))); return; } Image background = new Image(resource.toExternalForm()); BackgroundImage bg = new BackgroundImage(background, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, true)); root.setBackground(new Background(new BackgroundFill[] {new BackgroundFill(Color.web("#f3e7ce99"), CornerRadii.EMPTY, Insets.EMPTY)}, new BackgroundImage[] {bg})); }
 

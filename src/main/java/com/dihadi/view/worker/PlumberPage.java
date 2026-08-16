@@ -135,7 +135,12 @@ public class PlumberPage {
         });
         HBox navigation = new HBox(20, h, b("Business"), w, b("Recruiter"), a, b("Contact Us"));
         navigation.setAlignment(Pos.CENTER);
-        HBox account = new HBox(12, o("Login"), pr("Sign Up"));
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
+        Button login = o("Login"), signUp = pr("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(), () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane p = new BorderPane();
         p.setLeft(brand);

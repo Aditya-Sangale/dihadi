@@ -102,11 +102,16 @@ public class HomePage extends Application {
                 navButton("Contact Us", false, this::showContact));
         navigation.setAlignment(Pos.CENTER);
 
-        Button join = primaryButton("Join DIHADI");
+        Button login = outlineButton("Login");
+        login.setOnAction(event -> AppNavigator.login());
+        Button join = primaryButton("Sign Up");
+        join.setOnAction(event -> AppNavigator.signUp(primaryStage, this::showHome));
+        login.setMouseTransparent(true);
+        join.setMouseTransparent(true);
         BorderPane header = new BorderPane();
         header.setLeft(brand);
         header.setCenter(navigation);
-        header.setRight(join);
+        header.setRight(new HBox(10, login, join));
         header.setPadding(new Insets(16, 24, 14, 24));
         header.setStyle("-fx-background-color:#d8c39d;-fx-border-color:#b9a276;-fx-border-width:0 0 1px 0;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
         return header;

@@ -88,7 +88,12 @@ public class CarpenterPage {
         brand.setAlignment(Pos.CENTER_LEFT);
         HBox navigation = new HBox(20, nav("Home", false), nav("Business", false), nav("Worker", true), nav("Recruiter", false), nav("About Us", false), nav("Contact Us", false));
         navigation.setAlignment(Pos.CENTER);
-        HBox account = new HBox(12, outline("Login"), primary("Sign Up"));
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
+        Button login = outline("Login"), signUp = primary("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(), () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane h = new BorderPane();
         h.setLeft(brand);

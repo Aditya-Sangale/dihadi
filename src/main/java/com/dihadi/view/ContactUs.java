@@ -34,21 +34,22 @@ public class ContactUs {
         HBox brand = new HBox(10, logo, label("DIHADI",
                 "-fx-font-family:Georgia;-fx-font-size:25px;-fx-font-weight:800;-fx-text-fill:#735c00;"));
         brand.setAlignment(Pos.CENTER_LEFT);
-        Button h = nav("Home", false), b = nav("Business", false), w = nav("Worker", false), a = nav("About Us", false);
-        h.setOnAction(e -> run(home));
-        b.setOnAction(e -> run(business));
-        w.setOnAction(e -> run(worker));
-        a.setOnAction(e -> run(about));
-        HBox links = new HBox(20, h, b, w, nav("Recruiter", false), a, nav("Contact Us", true));
+        Button h = nav("Home", false), b = nav("Business", false), w = nav("Worker", false), recruiter = nav("Recruiter", false), a = nav("About Us", false), contact = nav("Contact Us", true);
+        h.setOnAction(e -> navigate(h, "Home")); b.setOnAction(e -> navigate(b, "Business")); w.setOnAction(e -> navigate(w, "Worker")); recruiter.setOnAction(e -> navigate(recruiter, "Recruiter")); a.setOnAction(e -> navigate(a, "About Us")); contact.setOnAction(e -> navigate(contact, "Contact Us"));
+        HBox links = new HBox(20, h, b, w, recruiter, a, contact);
         links.setAlignment(Pos.CENTER);
         BorderPane bar = new BorderPane();
         bar.setLeft(brand);
         bar.setCenter(links);
-        bar.setRight(new HBox(12, outline("Login"), primary("Sign Up")));
+        Button login = outline("Login"), signUp = primary("Sign Up");
+        login.setOnAction(e -> AppNavigator.login()); signUp.setOnAction(e -> AppNavigator.signUp((javafx.stage.Stage) signUp.getScene().getWindow(), () -> navigate(signUp, "Contact Us")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        bar.setRight(new HBox(12, login, signUp));
         bar.setPadding(new Insets(16, 42, 14, 42));
         bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
         return bar;
     }
+    private void navigate(Button source, String destination) { AppNavigator.open((javafx.stage.Stage) source.getScene().getWindow(), destination); }
 
     private StackPane contactHero() {
         StackPane hero = new StackPane(image("/assets/images/business/business1.png", 1400, 810));
