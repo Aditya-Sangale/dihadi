@@ -8,9 +8,9 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
@@ -32,7 +32,6 @@ import java.util.Locale;
  */
 public class SiteSupervisorJobRolesPage {
     private static final String ALL = "All";
-    // English title, Hindi title, city, state, daily wage, local image number.
     private static final String[][] JOBS = {
             { "Site Supervisor", "साइट सुपरवाइज़र", "Pune", "Maharashtra", "1400", "01" },
             { "Construction Foreman", "निर्माण फोरमैन", "Balimi", "Odisha", "1150", "02" },
@@ -78,8 +77,9 @@ public class SiteSupervisorJobRolesPage {
         Button home = nav("Home", false), business = nav("Business", false), worker = nav("Worker", true);
         Button recruiter = nav("Recruiter", false), about = nav("About Us", false), contact = nav("Contact Us", false);
         worker.setOnAction(e -> {
-            if (backAction != null)
+            if (backAction != null) {
                 backAction.run();
+            }
         });
         HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
@@ -181,15 +181,17 @@ public class SiteSupervisorJobRolesPage {
     }
 
     private void showMatches() {
-        if (state == null)
+        if (state == null) {
             return;
+        }
         cards.getChildren().clear();
         int count = 0;
-        for (String[] job : JOBS)
+        for (String[] job : JOBS) {
             if (matches(job)) {
                 cards.getChildren().add(card(job));
                 count++;
             }
+        }
         resultText.setText(count == 0 ? "No roles found. Try clearing one or more filters."
                 : count + " role" + (count == 1 ? "" : "s") + " available");
     }
@@ -214,12 +216,6 @@ public class SiteSupervisorJobRolesPage {
         Button apply = primary("APPLY");
         apply.setMaxWidth(Double.MAX_VALUE);
         apply.setOnAction(e -> applyForRole(job, apply));
-        apply.setOnAction(e -> {
-            apply.setText("APPLIED ✓");
-            apply.setDisable(true);
-            apply.setStyle(
-                    "-fx-background-color:#685c52;-fx-background-radius:10px;-fx-text-fill:white;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 22px;");
-        });
         VBox details = new VBox(8, verified, name, hindi, line(), place, wage, apply);
         details.setPadding(new Insets(17));
         details.setAlignment(Pos.TOP_LEFT);
@@ -234,8 +230,9 @@ public class SiteSupervisorJobRolesPage {
     private Node bottomBar(Runnable backAction) {
         Button back = outline("← Back to skills");
         back.setOnAction(e -> {
-            if (backAction != null)
+            if (backAction != null) {
                 backAction.run();
+            }
         });
         HBox bar = new HBox(back);
         bar.setAlignment(Pos.CENTER_LEFT);
