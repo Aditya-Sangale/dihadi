@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.GeneralLabour;
 
 import javafx.stage.Stage;
 
@@ -148,7 +148,10 @@ public class GeneralLabourPage {
         Button back = outlineButton("←  BACK");
         back.setOnAction(event -> { if (backAction != null) backAction.run(); });
         Button save = primaryButton("SAVE & NEXT  →");
-        save.setOnAction(event -> saveSelection());
+        save.setOnAction(event -> {
+            Stage stage = (Stage) save.getScene().getWindow();
+            stage.setScene(new GeneralLabourJobRole().getGeneralLabourJobRoleScene(backAction));
+        });
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox bar = new HBox(back, spacer, save);

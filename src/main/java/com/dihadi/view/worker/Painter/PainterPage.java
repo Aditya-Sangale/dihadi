@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.Painter;
 
 import javafx.stage.Stage;
 
@@ -119,9 +119,13 @@ public class PainterPage {
         });
         Region r = new Region();
         HBox.setHgrow(r, Priority.ALWAYS);
-        Button n = new Button("SAVE & NEXT");
+        Button n = new Button("SAVE & CONTINUE");
         n.setStyle("-fx-background-color:#d4af37;-fx-background-radius:18px;-fx-text-fill:#342f28;"
                 + "-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;");
+        n.setOnAction(e -> {
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.setScene(new PainterJobRole().getPainterJobRoleScene(back));
+        });
         HBox h = new HBox(b, r, n);
         h.setAlignment(Pos.CENTER);
         h.setPadding(new Insets(16, 70, 16, 70));

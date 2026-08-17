@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 
 /** Premium paper-and-gold About page matching WorkerPage. */
 public class AboutUs {
-    private static final String CARD = "-fx-background-color:#fff8f0;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),18,0,0,6px);";
+    private static final String CARD = "-fx-background-color:#f8eedb;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),18,0,0,6px);";
 
     public Scene getAboutScene(Runnable back) {
         return getAboutScene(back, null);
@@ -26,9 +26,11 @@ public class AboutUs {
         ScrollPane scroll = new ScrollPane(content);
         scroll.setFitToWidth(true);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scroll.setStyle("-fx-background-color:transparent;-fx-border-width:0;");
+        // The viewport must be styled as well; otherwise JavaFX shows a white strip behind the VBoxes.
+        scroll.setStyle("-fx-background:#f3e7ce;-fx-background-color:#f3e7ce;-fx-border-width:0;");
         BorderPane page = new BorderPane(scroll);
         page.setTop(header(back, workerAction));
+        page.setStyle("-fx-background-color:#f3e7ce;");
         StackPane root = new StackPane(page);
         root.setPadding(new Insets(24));
         setBackground(root);
@@ -51,13 +53,16 @@ public class AboutUs {
         ImageView photo = image("/assets/images/generalLabour.jpeg", 535, 320);
         StackPane imageBox = new StackPane(photo);
         imageBox.setStyle(
-                "-fx-background-color:#f5eddf;-fx-background-radius:24px;-fx-border-color:#d4af37;-fx-border-radius:24px;");
+                "-fx-background-color:#ead8b5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         HBox row = new HBox(34, text, imageBox);
         row.setAlignment(Pos.CENTER);
         row.setPadding(new Insets(28, 32, 28, 32));
         row.setMaxWidth(1180);
         row.setStyle(CARD);
-        return new VBox(row);
+        VBox section = new VBox(row);
+        section.setAlignment(Pos.CENTER);
+        section.setMaxWidth(1180);
+        return section;
     }
 
     private VBox mission() {
@@ -73,7 +78,7 @@ public class AboutUs {
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(26));
         section.setMaxWidth(1180);
-        section.setStyle("-fx-background-color:#efe7da;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
+        section.setStyle("-fx-background-color:#eedebf;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return section;
     }
 
@@ -107,6 +112,7 @@ public class AboutUs {
         HBox row = new HBox(42, quote, a, b);
         row.setAlignment(Pos.CENTER);
         VBox out = new VBox(row);
+        out.setAlignment(Pos.CENTER);
         out.setPadding(new Insets(25, 32, 25, 32));
         out.setMaxWidth(1180);
         out.setStyle("-fx-background-color:#343027;-fx-background-radius:20px;");
@@ -116,6 +122,7 @@ public class AboutUs {
     private VBox faq() {
         VBox list = new VBox(10);
         list.setMaxWidth(900);
+        list.setAlignment(Pos.CENTER);
         add(list, "What is DIHADI?",
                 "DIHADI is a comprehensive digital labor workforce ecosystem designed to connect daily wage earners directly with contractors and enterprises, eliminating exploitative middlemen and ensuring fair, timely compensation.");
         add(list, "How does the platform protect workers?",
@@ -129,7 +136,7 @@ public class AboutUs {
         out.setAlignment(Pos.CENTER);
         out.setPadding(new Insets(30, 24, 34, 24));
         out.setMaxWidth(1180);
-        out.setStyle("-fx-background-color:#efe7da;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
+        out.setStyle("-fx-background-color:#f0e1c5;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return out;
     }
 
@@ -163,10 +170,13 @@ public class AboutUs {
         VBox identity = new VBox(8,
                 new HBox(10, logo, label("DIHADI", "-fx-font-size:24px;-fx-font-weight:800;-fx-text-fill:#e9c349;")),
                 label("Mera Haq ~ Meri Dihadi", "-fx-font-size:15px;-fx-font-style:italic;-fx-text-fill:#f8f0e2;"));
+        identity.setAlignment(Pos.CENTER_LEFT);
         HBox main = new HBox(80, identity, footerCol("Explore", "Home", "Worker", "Business", "Contact Us"),
                 footerCol("Reach us", "Pune, Maharashtra, India", "info@meridihadi.com", "9561789599"));
+        main.setAlignment(Pos.TOP_CENTER);
         VBox out = new VBox(20, main,
                 label("© 2026 DIHADI · Fair work. Human dignity.", "-fx-font-size:12px;-fx-text-fill:#f8f0e2;-fx-opacity:.7;"));
+        out.setAlignment(Pos.CENTER);
         out.setPadding(new Insets(28, 42, 22, 42));
         out.setMaxWidth(1180);
         out.setStyle("-fx-background-color:#343027;-fx-background-radius:20px;-fx-border-color:#d0c5af;-fx-border-radius:20px;");
@@ -203,7 +213,8 @@ public class AboutUs {
         bar.setCenter(nav);
         bar.setRight(new HBox(10, login, signup));
         bar.setPadding(new Insets(16, 24, 14, 24));
-        bar.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
+        bar.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;"
+                + "-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
         return bar;
     }
 
@@ -211,21 +222,21 @@ public class AboutUs {
         Button b = new Button(t);
         b.setStyle("-fx-background-color:transparent;-fx-font-size:13px;-fx-font-weight:700;-fx-text-fill:"
                 + (active ? "#735c00" : "#4d4635") + ";-fx-border-color:" + (active ? "#735c00" : "transparent")
-                + ";-fx-border-width:0 0 2px 0;-fx-padding:8px 4px;");
+                + ";-fx-border-width:0 0 2px 0;-fx-font-family:'Segoe UI',sans-serif;-fx-padding:8px 4px;-fx-cursor:hand;");
         return b;
     }
 
     private Button primary(String t) {
         Button b = new Button(t);
         b.setStyle(
-                "-fx-background-color:#d4af37;-fx-background-radius:999px;-fx-text-fill:#3a3027;-fx-font-weight:700;-fx-padding:10px 20px;");
+                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#3a3027;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:10px 20px;-fx-cursor:hand;");
         return b;
     }
 
     private Button outline(String t) {
         Button b = new Button(t);
         b.setStyle(
-                "-fx-background-color:#fbf3e5;-fx-background-radius:999px;-fx-border-color:#735c00;-fx-border-radius:999px;-fx-text-fill:#735c00;-fx-font-weight:700;-fx-padding:9px 18px;");
+                "-fx-background-color:#fbf3e5;-fx-background-radius:18px;-fx-border-color:#c6a15b;-fx-border-radius:18px;-fx-text-fill:#735c00;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:9px 18px;-fx-cursor:hand;");
         return b;
     }
 
@@ -253,13 +264,8 @@ public class AboutUs {
     }
 
     private void setBackground(StackPane root) {
-        var r = getClass().getResource("/assets/images/background image.jpeg");
-        if (r == null) {
-            root.setBackground(
-                    new Background(new BackgroundFill(Color.web("#f3e7ce"), CornerRadii.EMPTY, Insets.EMPTY)));
-            return;
-        }
-        root.setBackground(new Background(new BackgroundFill(Color.web("#f3e7ce99"), CornerRadii.EMPTY, Insets.EMPTY)));
+        root.setBackground(
+                new Background(new BackgroundFill(Color.web("#f3e7ce"), CornerRadii.EMPTY, Insets.EMPTY)));
     }
 
     public void start(Stage stage) {

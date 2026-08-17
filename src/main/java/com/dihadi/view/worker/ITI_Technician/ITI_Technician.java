@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.ITI_Technician;
 
 import javafx.stage.Stage;
 
@@ -121,8 +121,11 @@ public class ITI_Technician {
     private HBox actionBar(Runnable backAction) {
         Button back = outline("←  BACK");
         back.setOnAction(event -> { if (backAction != null) backAction.run(); });
-        Button next = primary("SAVE & NEXT");
-        next.setOnAction(event -> save());
+        Button next = primary("SAVE & CONTINUE");
+        next.setOnAction(event -> {
+            Stage stage = (Stage) next.getScene().getWindow();
+            stage.setScene(new ITI_TechnicianJobRole().getItiTechnicianJobRoleScene(backAction));
+        });
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox bar = new HBox(back, spacer, next);

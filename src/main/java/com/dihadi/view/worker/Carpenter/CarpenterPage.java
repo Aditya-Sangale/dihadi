@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.Carpenter;
 
 import javafx.stage.Stage;
 
@@ -139,7 +139,11 @@ public class CarpenterPage {
         });
         Region r = new Region();
         HBox.setHgrow(r, Priority.ALWAYS);
-        Button n = primary("SAVE & NEXT");
+        Button n = primary("SAVE & CONTINUE");
+        n.setOnAction(e -> {
+            Stage stage = (Stage) n.getScene().getWindow();
+            stage.setScene(new CarpenterJobRole().getCarpenterJobRoleScene(back));
+        });
         HBox h = new HBox(b, r, n);
         h.setAlignment(Pos.CENTER);
         h.setPadding(new Insets(16, 70, 16, 70));

@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.Site_Supervisor;
 
 import javafx.stage.Stage;
 
@@ -171,7 +171,11 @@ public class Site_Supervisor {
     private HBox createActionBar(Runnable backAction) {
         Button back = outlineButton("BACK");
         back.setOnAction(event -> { if (backAction != null) backAction.run(); });
-        Button save = primaryButton("SAVE & NEXT");
+        Button save = primaryButton("SAVE & CONTINUE");
+        save.setOnAction(e -> {
+            javafx.stage.Stage stage = (javafx.stage.Stage) save.getScene().getWindow();
+            stage.setScene(new Site_SupervisorJobRole().getSiteSupervisorJobRoleScene(backAction));
+        });
         save.setOnAction(event -> saveSelection());
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);

@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.Electrician;
 
 import javafx.stage.Stage;
 
@@ -9,7 +9,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -176,8 +175,11 @@ public class ElectricianPage {
             if (back != null)
                 back.run();
         });
-        Button next = primary("SAVE & NEXT");
-        next.setOnAction(e -> save());
+        Button next = primary("SAVE & CONTINUE");
+        next.setOnAction(e -> {
+            Stage stage = (Stage) next.getScene().getWindow();
+            stage.setScene(new ElectricianJobRole().getElectricianJobRoleScene(back));
+        });
         Region gap = new Region();
         HBox.setHgrow(gap, Priority.ALWAYS);
         HBox bar = new HBox(previous, gap, next);
@@ -185,15 +187,6 @@ public class ElectricianPage {
         bar.setPadding(new Insets(16, 70, 16, 70));
         bar.setStyle("-fx-background-color:rgba(255,248,240,.96);-fx-border-color:#d0c5af;-fx-border-width:1px 0 0 0;");
         return bar;
-    }
-
-    private void save() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Electrician Skills");
-        alert.setHeaderText(null);
-        alert.setContentText(selected.isEmpty() ? "Select at least one sub-skill to continue."
-                : selected.size() + " skill" + (selected.size() == 1 ? " has" : "s have") + " been selected.");
-        alert.show();
     }
 
     private void cardStyle(Button card, boolean active) {
