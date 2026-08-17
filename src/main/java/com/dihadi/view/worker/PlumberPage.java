@@ -1,5 +1,7 @@
 package com.dihadi.view.worker;
 
+import javafx.stage.Stage;
+
 import java.util.*;
 import javafx.geometry.*;
 import javafx.scene.*;
