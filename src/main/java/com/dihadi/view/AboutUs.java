@@ -69,7 +69,12 @@ public class AboutUs {
                 false);
         HBox row = new HBox(24, a, b);
         row.setAlignment(Pos.CENTER);
-        return new VBox(row);
+        VBox section = new VBox(row);
+        section.setAlignment(Pos.CENTER);
+        section.setPadding(new Insets(26));
+        section.setMaxWidth(1180);
+        section.setStyle("-fx-background-color:#efe7da;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
+        return section;
     }
 
     private VBox card(String title, String text, boolean quote) {
@@ -124,7 +129,7 @@ public class AboutUs {
         out.setAlignment(Pos.CENTER);
         out.setPadding(new Insets(30, 24, 34, 24));
         out.setMaxWidth(1180);
-        out.setStyle("-fx-background-color:#efe7da;-fx-background-radius:24px;");
+        out.setStyle("-fx-background-color:#efe7da;-fx-background-radius:24px;-fx-border-color:#d0c5af;-fx-border-radius:24px;");
         return out;
     }
 
@@ -156,24 +161,23 @@ public class AboutUs {
         ImageView logo = image("/assets/logo/dihadi logo.jpeg", 52, 52);
         logo.setPreserveRatio(true);
         VBox identity = new VBox(8,
-                new HBox(10, logo, label("DIHADI", "-fx-font-size:24px;-fx-font-weight:800;-fx-text-fill:#554300;")),
-                label("Mera Haq ~ Meri Dihadi", "-fx-font-size:15px;-fx-font-style:italic;-fx-text-fill:#554300;"));
+                new HBox(10, logo, label("DIHADI", "-fx-font-size:24px;-fx-font-weight:800;-fx-text-fill:#e9c349;")),
+                label("Mera Haq ~ Meri Dihadi", "-fx-font-size:15px;-fx-font-style:italic;-fx-text-fill:#f8f0e2;"));
         HBox main = new HBox(80, identity, footerCol("Explore", "Home", "Worker", "Business", "Contact Us"),
                 footerCol("Reach us", "Pune, Maharashtra, India", "info@meridihadi.com", "9561789599"));
         VBox out = new VBox(20, main,
-                label("© 2026 DIHADI · Fair work. Human dignity.", "-fx-font-size:12px;-fx-text-fill:#554300;"));
+                label("© 2026 DIHADI · Fair work. Human dignity.", "-fx-font-size:12px;-fx-text-fill:#f8f0e2;-fx-opacity:.7;"));
         out.setPadding(new Insets(28, 42, 22, 42));
         out.setMaxWidth(1180);
-        out.setStyle(
-                "-fx-background-color:#d8c39d;-fx-background-radius:20px;-fx-border-color:#b9a276;-fx-border-radius:20px;");
+        out.setStyle("-fx-background-color:#343027;-fx-background-radius:20px;-fx-border-color:#d0c5af;-fx-border-radius:20px;");
         return out;
     }
 
     private VBox footerCol(String title, String... items) {
         VBox b = new VBox(7);
-        b.getChildren().add(label(title, "-fx-font-size:13px;-fx-font-weight:800;-fx-text-fill:#735c00;"));
+        b.getChildren().add(label(title, "-fx-font-size:13px;-fx-font-weight:800;-fx-text-fill:#e9c349;"));
         for (String item : items)
-            b.getChildren().add(label(item, "-fx-font-size:13px;-fx-text-fill:#554300;"));
+            b.getChildren().add(label(item, "-fx-font-size:13px;-fx-text-fill:#f8f0e2;-fx-opacity:.82;"));
         return b;
     }
 
@@ -187,15 +191,13 @@ public class AboutUs {
         nav.setAlignment(Pos.CENTER);
         for (String n : new String[] { "Home", "Business", "Worker", "Recruiter", "About Us", "Contact Us" }) {
             Button b = navButton(n, n.equals("About Us"));
-            b.setOnAction(e -> {
-                if (n.equals("Home") && back != null)
-                    back.run();
-                if (n.equals("Worker") && workerAction != null)
-                    workerAction.run();
-            });
+            b.setOnAction(e -> AppNavigator.open((Stage) b.getScene().getWindow(), n));
             nav.getChildren().add(b);
         }
         Button login = outline("Login"), signup = primary("Sign Up");
+        login.setOnAction(e -> AppNavigator.login());
+        signup.setOnAction(e -> AppNavigator.signUp((Stage) signup.getScene().getWindow(), () -> AppNavigator.open((Stage) signup.getScene().getWindow(), "About Us")));
+        login.setMouseTransparent(true); signup.setMouseTransparent(true);
         BorderPane bar = new BorderPane();
         bar.setLeft(brand);
         bar.setCenter(nav);

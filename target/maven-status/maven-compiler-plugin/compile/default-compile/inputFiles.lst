@@ -1,6 +1,8 @@
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\AboutUs.java
+D:\dihadi\dihadi\src\main\java\com\dihadi\view\recruiter\SignUpRecruiter.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\BusinessPage.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\ElectricianPage.java
+D:\dihadi\dihadi\src\main\java\com\dihadi\view\AppNavigator.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\HomePage.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\Main.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\PlumberPage.java
@@ -13,3 +15,4 @@ D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\MasonPage.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\CarpenterPage.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\GeneralLabourPage.java
 D:\dihadi\dihadi\src\main\java\com\dihadi\view\ContactUs.java
+D:\dihadi\dihadi\src\main\java\com\dihadi\view\worker\WokerSignUp.java

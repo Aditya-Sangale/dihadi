@@ -1,5 +1,7 @@
 package com.dihadi.view.worker;
 
+import javafx.stage.Stage;
+
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -183,8 +185,13 @@ public class GeneralLabourPage {
         Button contact = navButton("Contact Us", false);
         HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
 
-        HBox account = new HBox(14, outlineButton("Login"), primaryButton("Sign Up"));
+        Button login = outlineButton("Login"), signUp = primaryButton("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(), () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        HBox account = new HBox(14, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane header = new BorderPane();
         header.setLeft(brand);

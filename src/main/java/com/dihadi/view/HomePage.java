@@ -1,5 +1,7 @@
 package com.dihadi.view;
 
+import com.dihadi.view.recruiter.SignUpRecruiter;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -97,18 +99,23 @@ public class HomePage extends Application {
                 navButton("Home", true, this::showHome),
                 navButton("Business", false, this::showBusiness),
                 navButton("Worker", false, this::showWorker),
-                navButton("Recruiter", false, () -> comingSoon("Recruiter", "Recruiter tools are coming soon.")),
+                navButton("Recruiter", false, this::showRecruiter),
                 navButton("About Us", false, this::showAbout),
                 navButton("Contact Us", false, this::showContact));
         navigation.setAlignment(Pos.CENTER);
 
-        Button join = primaryButton("Join DIHADI");
+        Button login = outlineButton("Login");
+        login.setOnAction(event -> AppNavigator.login());
+        Button join = primaryButton("Sign Up");
+        join.setOnAction(event -> AppNavigator.signUp(primaryStage, this::showHome));
+        login.setMouseTransparent(true);
+        join.setMouseTransparent(true);
         BorderPane header = new BorderPane();
         header.setLeft(brand);
         header.setCenter(navigation);
-        header.setRight(join);
+        header.setRight(new HBox(10, login, join));
         header.setPadding(new Insets(16, 24, 14, 24));
-        header.setStyle("-fx-background-color:#d8c39d;-fx-border-color:#b9a276;-fx-border-width:0 0 1px 0;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
+        header.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
         return header;
     }
 
@@ -129,7 +136,7 @@ public class HomePage extends Application {
         Button findJob = primaryButton("Find a Job");
         findJob.setOnAction(event -> showWorker());
         Button hireWorkers = outlineButton("Hire Workers");
-        hireWorkers.setOnAction(event -> comingSoon("Hire Workers", "Recruiter services are being prepared for you."));
+        hireWorkers.setOnAction(event -> showRecruiter());
 
         VBox textPanel = new VBox(15, eyebrow, title, intro, new HBox(12, findJob, hireWorkers));
         textPanel.setAlignment(Pos.CENTER_LEFT);
@@ -148,7 +155,7 @@ public class HomePage extends Application {
         cards.setAlignment(Pos.CENTER);
         cards.getChildren().addAll(
                 actionCard("WORK", "Find Jobs", "Discover dignified work opportunities that match your skills.", "Explore work", this::showWorker),
-                actionCard("TEAM", "Hire Workers", "Connect with a verified, skilled, and reliable workforce.", "Start hiring", () -> comingSoon("Hire Workers", "Recruiter services are being prepared for you.")),
+                actionCard("TEAM", "Hire Workers", "Connect with a verified, skilled, and reliable workforce.", "Start hiring", this::showRecruiter),
                 actionCard("BUILD", "Find Projects", "Explore contracting opportunities and build stronger teams.", "Explore projects", () -> comingSoon("Find Projects", "Business project listings are coming soon.")));
         VBox section = new VBox(10, title, subtitle, cards);
         section.setAlignment(Pos.CENTER);
@@ -170,7 +177,7 @@ public class HomePage extends Application {
         card.setAlignment(Pos.TOP_LEFT);
         card.setPadding(new Insets(24));
         card.setPrefSize(300, 245);
-        card.setStyle("-fx-background-color:#d8c39d;-fx-background-radius:22px;-fx-border-color:#b9a276;-fx-border-radius:22px;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.08),16,0,0,5px);");
+        card.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:22px;-fx-border-color:#d0c5af;-fx-border-radius:22px;-fx-effect:dropshadow(gaussian,rgba(58,48,39,.08),16,0,0,5px);");
         return card;
     }
 
@@ -230,6 +237,7 @@ public class HomePage extends Application {
 
     private void showWorker() { stopSlider(); primaryStage.setScene(new WorkerPage().getWorkerScene(this::showHome, this::showAbout)); }
     private void showBusiness() { stopSlider(); primaryStage.setScene(new BusinessPage().getBusinessScene(this::showHome, this::showWorker)); }
+    private void showRecruiter() { stopSlider(); primaryStage.setScene(new SignUpRecruiter().getRecruiterSignUpScene(this::showHome)); }
     private void showAbout() { stopSlider(); primaryStage.setScene(new AboutUs().getAboutScene(this::showHome, this::showWorker)); }
     private void showContact() { stopSlider(); primaryStage.setScene(new ContactUs().getContactScene(this::showHome, this::showBusiness, this::showWorker, this::showAbout)); }
     private void comingSoon(String title, String message) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(message); alert.show(); }

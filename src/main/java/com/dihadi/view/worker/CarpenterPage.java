@@ -1,5 +1,7 @@
 package com.dihadi.view.worker;
 
+import javafx.stage.Stage;
+
 import javafx.geometry.*;
 import javafx.scene.*;
 import javafx.scene.control.*;
@@ -86,9 +88,17 @@ public class CarpenterPage {
         d.setStyle("-fx-font-family:'Georgia';-fx-font-size:25px;-fx-font-weight:800;-fx-text-fill:#735c00;");
         HBox brand = new HBox(d);
         brand.setAlignment(Pos.CENTER_LEFT);
-        HBox navigation = new HBox(20, nav("Home", false), nav("Business", false), nav("Worker", true), nav("Recruiter", false), nav("About Us", false), nav("Contact Us", false));
+        HBox navigation = new HBox(20, nav("Home", false), nav("Business", false), nav("Worker", true),
+                nav("Recruiter", false), nav("About Us", false), nav("Contact Us", false));
         navigation.setAlignment(Pos.CENTER);
-        HBox account = new HBox(12, outline("Login"), primary("Sign Up"));
+        com.dihadi.view.AppNavigator.activateNavigation(navigation);
+        Button login = outline("Login"), signUp = primary("Sign Up");
+        login.setOnAction(e -> com.dihadi.view.AppNavigator.login());
+        signUp.setOnAction(e -> com.dihadi.view.AppNavigator.signUp((Stage) signUp.getScene().getWindow(),
+                () -> com.dihadi.view.AppNavigator.open((Stage) signUp.getScene().getWindow(), "Worker")));
+        login.setMouseTransparent(true);
+        signUp.setMouseTransparent(true);
+        HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
         BorderPane h = new BorderPane();
         h.setLeft(brand);
@@ -99,9 +109,27 @@ public class CarpenterPage {
         return h;
     }
 
-    private Button nav(String text, boolean active) { Button b = new Button(text); b.setStyle("-fx-background-color:transparent;-fx-font-size:13px;-fx-font-weight:700;-fx-text-fill:" + (active ? "#735c00" : "#4d4635") + ";-fx-border-color:" + (active ? "#735c00" : "transparent") + ";-fx-border-width:0 0 2px 0;-fx-padding:8px 4px;"); return b; }
-    private Button primary(String text) { Button b = new Button(text); b.setStyle("-fx-background-color:#d4af37;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;"); return b; }
-    private Button outline(String text) { Button b = new Button(text); b.setStyle("-fx-background-color:transparent;-fx-background-radius:18px;-fx-border-color:#806c47;-fx-border-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:700;-fx-padding:10px 23px;-fx-cursor:hand;"); return b; }
+    private Button nav(String text, boolean active) {
+        Button b = new Button(text);
+        b.setStyle("-fx-background-color:transparent;-fx-font-size:13px;-fx-font-weight:700;-fx-text-fill:"
+                + (active ? "#735c00" : "#4d4635") + ";-fx-border-color:" + (active ? "#735c00" : "transparent")
+                + ";-fx-border-width:0 0 2px 0;-fx-padding:8px 4px;");
+        return b;
+    }
+
+    private Button primary(String text) {
+        Button b = new Button(text);
+        b.setStyle(
+                "-fx-background-color:#d4af37;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;");
+        return b;
+    }
+
+    private Button outline(String text) {
+        Button b = new Button(text);
+        b.setStyle(
+                "-fx-background-color:transparent;-fx-background-radius:18px;-fx-border-color:#806c47;-fx-border-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:700;-fx-padding:10px 23px;-fx-cursor:hand;");
+        return b;
+    }
 
     private HBox actions(Runnable back) {
         Button b = outline("←  BACK");
