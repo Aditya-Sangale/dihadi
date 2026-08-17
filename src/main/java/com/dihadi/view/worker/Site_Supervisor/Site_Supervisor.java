@@ -174,9 +174,8 @@ public class Site_Supervisor {
         Button save = primaryButton("SAVE & CONTINUE");
         save.setOnAction(e -> {
             javafx.stage.Stage stage = (javafx.stage.Stage) save.getScene().getWindow();
-            stage.setScene(new Site_SupervisorJobRole().getSiteSupervisorJobRoleScene(backAction));
+            stage.setScene(new SiteSupervisorJobRolesPage().getScene(backAction));
         });
-        save.setOnAction(event -> saveSelection());
         Region spacer = new Region();
         HBox.setHgrow(spacer, Priority.ALWAYS);
         HBox bar = new HBox(back, spacer, save);
