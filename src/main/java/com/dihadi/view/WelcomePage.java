@@ -73,7 +73,7 @@ public class WelcomePage extends Application{
         headerPane.setCenter(titleWrap);
         headerPane.setPadding(new Insets(16, 24, 14, 24));
         headerPane.setPrefWidth(Double.MAX_VALUE);
-        headerPane.setStyle("-fx-background-color: #ffffff; -fx-border-color: #111111; -fx-border-width: 0 0 2px 0; -fx-effect: dropshadow(gaussian, rgba(17,17,17,0.08), 10, 0.28, 0, 1.5px);");
+        headerPane.setStyle("-fx-background-color: #f3e7ce; -fx-border-color: #d0c5af; -fx-border-width: 0 0 1px 0; -fx-effect: dropshadow(gaussian, rgba(58,48,39,0.08), 10, 0.28, 0, 1.5px);");
 
         VBox topBar = new VBox(headerPane);
         topBar.setPadding(new Insets(0, 0, 0, 0));
@@ -101,14 +101,14 @@ public class WelcomePage extends Application{
 
         StackPane videoContainer = new StackPane(mediaView);
         videoContainer.setPadding(new Insets(30, 0, 0, 0));
-        videoContainer.setStyle("-fx-background-color: rgba(255,255,255,0.82); -fx-background-radius: 24px; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 24, 0, 0, 8);");
+        videoContainer.setStyle("-fx-background-color: #fff8f0; -fx-background-radius: 24px; -fx-border-color:#d0c5af; -fx-border-radius:24px; -fx-effect: dropshadow(gaussian, rgba(58,48,39,0.12), 24, 0, 0, 8);");
 
         // Short project introduction shown beside the welcome video.
         Label sideTitle = new Label("WORK MADE SIMPLE");
         sideTitle.setStyle("-fx-font-size: 24px; -fx-font-weight: 800; -fx-text-fill: #111111; -fx-font-family: 'Segoe UI', sans-serif;");
 
         Label lineOne = new Label("Find skilled workers for every job.");
-        lineOne.setStyle("-fx-font-size: 17px; -fx-font-weight: 700; -fx-text-fill: #1f5dd7; -fx-font-family: 'Segoe UI Semibold', sans-serif;");
+        lineOne.setStyle("-fx-font-size: 17px; -fx-font-weight: 700; -fx-text-fill: #735c00; -fx-font-family: 'Segoe UI Semibold', sans-serif;");
 
         Label lineTwo = new Label("Connect with trusted teams in your area.");
         lineTwo.setStyle("-fx-font-size: 15px; -fx-text-fill: #333333; -fx-font-family: 'Verdana', sans-serif;");
@@ -131,7 +131,7 @@ public class WelcomePage extends Application{
         Label lineSix = new Label("Build every day with confidence, clarity, and trust.");
         lineSix.setWrapText(true);
         lineSix.setMaxWidth(360);
-        lineSix.setStyle("-fx-font-size: 15px; -fx-font-style: italic; -fx-text-fill: #1f5dd7; -fx-font-family: 'Georgia', serif;");
+        lineSix.setStyle("-fx-font-size: 15px; -fx-font-style: italic; -fx-text-fill: #735c00; -fx-font-family: 'Georgia', serif;");
 
         Label bullet1 = new Label("• Professional workforce coordination for every site");
         bullet1.setStyle("-fx-font-size: 14px; -fx-text-fill: #333333; -fx-font-family: 'Lucida Sans', sans-serif;");
@@ -141,7 +141,7 @@ public class WelcomePage extends Application{
         bullet3.setStyle("-fx-font-size: 14px; -fx-text-fill: #333333; -fx-font-family: 'Lucida Sans', sans-serif;");
 
         Label highlightTitle = new Label("Core strengths");
-        highlightTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #1f5dd7; -fx-font-family: 'Georgia', serif;");
+        highlightTitle.setStyle("-fx-font-size: 18px; -fx-font-weight: 800; -fx-text-fill: #735c00; -fx-font-family: 'Georgia', serif;");
 
         Label highlight1 = new Label("Skilled personnel ready for every job phase.");
         highlight1.setWrapText(true);
@@ -152,13 +152,13 @@ public class WelcomePage extends Application{
         highlight2.setStyle("-fx-font-size: 15px; -fx-font-weight: 600; -fx-text-fill: #2d2d2d; -fx-font-family: 'Arial', sans-serif;");
 
         Button actionButton = new Button("Get Started");
-        actionButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: white; -fx-background-color: #1f5dd7; -fx-background-radius: 999px; -fx-padding: 12 26 12 26; -fx-font-family: 'Arial', sans-serif;");
+        actionButton.setStyle("-fx-font-size: 15px; -fx-font-weight: 700; -fx-text-fill: #342f28; -fx-background-color: #d4af37; -fx-background-radius: 999px; -fx-padding: 12 26 12 26; -fx-font-family: 'Arial', sans-serif;");
 
         VBox sidePanel = new VBox(14, sideTitle, lineOne, lineTwo, lineThree, lineFour, lineFive, lineSix, actionButton);
         sidePanel.setAlignment(Pos.CENTER_LEFT);
         sidePanel.setPadding(new Insets(30, 30, 30, 30));
         sidePanel.setPrefWidth(420);
-        sidePanel.setStyle("-fx-background-color: rgba(255,255,255,0.94); -fx-border-color: rgba(31,93,215,0.16); -fx-border-width: 1px; -fx-background-radius: 24px; -fx-border-radius: 24px;");
+        sidePanel.setStyle("-fx-background-color: #fff8f0; -fx-border-color: #d0c5af; -fx-border-width: 1px; -fx-background-radius: 24px; -fx-border-radius: 24px;");
 
         HBox mainContent = new HBox(24, videoContainer, sidePanel);
         mainContent.setAlignment(Pos.CENTER);

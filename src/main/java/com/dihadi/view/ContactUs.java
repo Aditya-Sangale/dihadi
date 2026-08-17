@@ -42,14 +42,23 @@ public class ContactUs {
         bar.setLeft(brand);
         bar.setCenter(links);
         Button login = outline("Login"), signUp = primary("Sign Up");
-        login.setOnAction(e -> AppNavigator.login()); signUp.setOnAction(e -> AppNavigator.signUp((javafx.stage.Stage) signUp.getScene().getWindow(), () -> navigate(signUp, "Contact Us")));
-        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
         bar.setRight(new HBox(12, login, signUp));
         bar.setPadding(new Insets(16, 42, 14, 42));
         bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
         return bar;
     }
-    private void navigate(Button source, String destination) { AppNavigator.open((javafx.stage.Stage) source.getScene().getWindow(), destination); }
+    private void navigate(Button source, String destination) {
+        javafx.stage.Stage stage=(javafx.stage.Stage)source.getScene().getWindow();
+        switch(destination) {
+            case "Home" -> stage.setScene(new HomePage(stage).getHomeScene());
+            case "Business" -> stage.setScene(new BusinessPage().getBusinessScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
+            case "Worker" -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null));
+            case "About Us" -> stage.setScene(new AboutUs().getAboutScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
+            default -> { }
+        }
+    }
+    private void openSignUp(Button source) { javafx.stage.Stage stage=(javafx.stage.Stage)source.getScene().getWindow(); javafx.scene.Scene previous=stage.getScene(); stage.setScene(new com.dihadi.view.worker.WokerSignUp().getSignUpScene(() -> stage.setScene(previous))); }
 
     private StackPane contactHero() {
         StackPane hero = new StackPane(image("/assets/images/business/business1.png", 1400, 810));

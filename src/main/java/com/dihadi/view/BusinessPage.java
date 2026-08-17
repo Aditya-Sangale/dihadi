@@ -67,8 +67,7 @@ public class BusinessPage {
         HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
         Button login = outline("Login"), signUp = primary("Sign Up");
-        login.setOnAction(e -> AppNavigator.login()); signUp.setOnAction(e -> AppNavigator.signUp((javafx.stage.Stage) signUp.getScene().getWindow(), () -> AppNavigator.open((javafx.stage.Stage) signUp.getScene().getWindow(), "Business")));
-        login.setMouseTransparent(true); signUp.setMouseTransparent(true);
+        login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
         HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
 
@@ -80,7 +79,17 @@ public class BusinessPage {
         bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
         return bar;
     }
-    private void navigate(Button source, String destination) { AppNavigator.open((javafx.stage.Stage) source.getScene().getWindow(), destination); }
+    private void navigate(Button source, String destination) {
+        javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
+        switch (destination) {
+            case "Home" -> stage.setScene(new HomePage(stage).getHomeScene());
+            case "Worker" -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null));
+            case "About Us" -> stage.setScene(new AboutUs().getAboutScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
+            case "Contact Us" -> stage.setScene(new ContactUs().getContactScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(getBusinessScene(null, null)), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null)), null));
+            default -> { }
+        }
+    }
+    private void openSignUp(Button source) { javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow(); javafx.scene.Scene previous = stage.getScene(); stage.setScene(new com.dihadi.view.worker.WokerSignUp().getSignUpScene(() -> stage.setScene(previous))); }
 
     private VBox hero() {
         Label eyebrow = label("ENTERPRISE WORKFORCE SOLUTIONS", smallGold());
