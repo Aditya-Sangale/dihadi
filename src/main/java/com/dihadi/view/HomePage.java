@@ -1,5 +1,6 @@
 package com.dihadi.view;
 
+import com.dihadi.view.recruiter.HireSuitableSkilledWorkersPage;
 import com.dihadi.view.recruiter.SignUpRecruiter;
 
 import javafx.animation.KeyFrame;
@@ -47,6 +48,7 @@ public class HomePage extends Application {
     public void start(Stage stage) {
         primaryStage = stage;
         primaryStage.setTitle("DIHADI - Mera Haq ~ Meri Dihadi");
+        primaryStage.setFullScreen(false);
         primaryStage.setWidth(1400);
         primaryStage.setHeight(780);
         primaryStage.setMaximized(true);
@@ -99,17 +101,15 @@ public class HomePage extends Application {
                 navButton("Home", true, this::showHome),
                 navButton("Business", false, this::showBusiness),
                 navButton("Worker", false, this::showWorker),
-                navButton("Recruiter", false, this::showRecruiter),
+                navButton("Recruiter", false, this::showRecruiterSignUp),
                 navButton("About Us", false, this::showAbout),
                 navButton("Contact Us", false, this::showContact));
         navigation.setAlignment(Pos.CENTER);
 
         Button login = outlineButton("Login");
-        login.setOnAction(event -> AppNavigator.login());
+        login.setOnAction(event -> AppNavigator.adminLoginInProgress());
         Button join = primaryButton("Sign Up");
-        join.setOnAction(event -> AppNavigator.signUp(primaryStage, this::showHome));
-        login.setMouseTransparent(true);
-        join.setMouseTransparent(true);
+        join.setOnAction(event -> AppNavigator.adminLoginInProgress());
         BorderPane header = new BorderPane();
         header.setLeft(brand);
         header.setCenter(navigation);
@@ -235,9 +235,11 @@ public class HomePage extends Application {
         return button;
     }
 
-    private void showWorker() { stopSlider(); primaryStage.setScene(new WorkerPage().getWorkerScene(this::showHome, this::showAbout)); }
+    /** Worker navigation and job discovery begin with the worker profile form. */
+    private void showWorker() { stopSlider(); AppNavigator.signUp(primaryStage, null); }
     private void showBusiness() { stopSlider(); primaryStage.setScene(new BusinessPage().getBusinessScene(this::showHome, this::showWorker)); }
-    private void showRecruiter() { stopSlider(); primaryStage.setScene(new SignUpRecruiter().getRecruiterSignUpScene(this::showHome)); }
+    private void showRecruiter() { stopSlider(); primaryStage.setScene(new HireSuitableSkilledWorkersPage().getHireWorkersScene(this::showHome)); }
+    private void showRecruiterSignUp() { stopSlider(); primaryStage.setScene(new SignUpRecruiter().getRecruiterSignUpScene(this::showHome)); }
     private void showAbout() { stopSlider(); primaryStage.setScene(new AboutUs().getAboutScene(this::showHome, this::showWorker)); }
     private void showContact() { stopSlider(); primaryStage.setScene(new ContactUs().getContactScene(this::showHome, this::showBusiness, this::showWorker, this::showAbout)); }
     private void comingSoon(String title, String message) { Alert alert = new Alert(Alert.AlertType.INFORMATION); alert.setTitle(title); alert.setHeaderText(null); alert.setContentText(message); alert.show(); }

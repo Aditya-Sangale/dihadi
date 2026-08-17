@@ -42,7 +42,7 @@ public class ContactUs {
         bar.setLeft(brand);
         bar.setCenter(links);
         Button login = outline("Login"), signUp = primary("Sign Up");
-        login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
+        login.setOnAction(e -> AppNavigator.adminLoginInProgress()); signUp.setOnAction(e -> AppNavigator.adminLoginInProgress());
         bar.setRight(new HBox(10, login, signUp));
         bar.setPadding(new Insets(16, 24, 14, 24));
         bar.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;"
@@ -54,7 +54,8 @@ public class ContactUs {
         switch(destination) {
             case "Home" -> stage.setScene(new HomePage(stage).getHomeScene());
             case "Business" -> stage.setScene(new BusinessPage().getBusinessScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
-            case "Worker" -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null));
+            case "Worker" -> AppNavigator.signUp(stage, null);
+            case "Recruiter" -> stage.setScene(new com.dihadi.view.recruiter.SignUpRecruiter().getRecruiterSignUpScene(() -> stage.setScene(getContactScene(null, null, null, null))));
             case "About Us" -> stage.setScene(new AboutUs().getAboutScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
             default -> { }
         }

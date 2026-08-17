@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
@@ -35,6 +36,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class WelcomePage extends Application{
+    private static final double SCENE_WIDTH = 1400;
+    private static final double SCENE_HEIGHT = 780;
+    private MediaPlayer welcomePlayer;
+    private boolean transitioning;
 
     @Override
     public void start(Stage Homestage){
@@ -88,10 +93,10 @@ public class WelcomePage extends Application{
             Path videoFile = resolveResourceToFile(videoPath, ".mp4");
             if (videoFile != null) {
                 Media media = new Media(videoFile.toUri().toString());
-                MediaPlayer mediaPlayer = new MediaPlayer(media);
-                mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-                mediaPlayer.setAutoPlay(true);
-                mediaView.setMediaPlayer(mediaPlayer);
+                welcomePlayer = new MediaPlayer(media);
+                welcomePlayer.setCycleCount(MediaPlayer.INDEFINITE);
+                welcomePlayer.setAutoPlay(true);
+                mediaView.setMediaPlayer(welcomePlayer);
             } else {
                 System.err.println("Video resource not found: " + videoPath);
             }
@@ -201,18 +206,45 @@ public class WelcomePage extends Application{
             root.setBackground(new Background(new BackgroundFill(Color.web("#e9e6da"), CornerRadii.EMPTY, Insets.EMPTY)));
         }
 
-        Scene scene = new Scene(root);
+        Scene scene = new Scene(root, SCENE_WIDTH, SCENE_HEIGHT);
         // Capture clicks anywhere on the welcome UI, including the video and text panel.
         root.addEventFilter(MouseEvent.MOUSE_CLICKED, event -> showNextPage(Homestage));
         Homestage.setScene(scene);
-        Homestage.setFullScreen(true);
-        Homestage.setFullScreenExitHint("");
+        Homestage.setFullScreen(false);
+        Homestage.setWidth(SCENE_WIDTH);
+        Homestage.setHeight(SCENE_HEIGHT);
+        Homestage.setMaximized(true);
         Homestage.show();
     }
 
     /** Opens HomePage and its navigation after the welcome interaction. */
     private void showNextPage(Stage stage) {
+        if (transitioning) {
+            return;
+        }
+        transitioning = true;
+        stopWelcomeVideo();
+        stage.setFullScreen(false);
+        stage.setMaximized(false);
+        stage.setWidth(SCENE_WIDTH);
+        stage.setHeight(SCENE_HEIGHT);
         stage.setScene(new HomePage(stage).getHomeScene());
+        // Apply the shared size after the new scene has been attached. JavaFX can otherwise restore
+        // the previous window bounds while leaving full-screen mode.
+        Platform.runLater(() -> {
+            stage.setWidth(SCENE_WIDTH);
+            stage.setHeight(SCENE_HEIGHT);
+            stage.setMaximized(true);
+        });
+    }
+
+    /** Releases the welcome media resources before the scene is replaced. */
+    private void stopWelcomeVideo() {
+        if (welcomePlayer != null) {
+            welcomePlayer.stop();
+            welcomePlayer.dispose();
+            welcomePlayer = null;
+        }
     }
     private Path resolveResourceToFile(String resourcePath, String suffix) throws IOException, URISyntaxException {
         var resource = getClass().getResource(resourcePath);

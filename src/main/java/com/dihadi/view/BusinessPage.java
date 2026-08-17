@@ -67,7 +67,7 @@ public class BusinessPage {
         HBox navigation = new HBox(12, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
         Button login = outline("Login"), signUp = primary("Sign Up");
-        login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
+        login.setOnAction(e -> AppNavigator.adminLoginInProgress()); signUp.setOnAction(e -> AppNavigator.adminLoginInProgress());
         HBox account = new HBox(12, login, signUp);
         account.setAlignment(Pos.CENTER_RIGHT);
 
@@ -84,7 +84,8 @@ public class BusinessPage {
         javafx.stage.Stage stage = (javafx.stage.Stage) source.getScene().getWindow();
         switch (destination) {
             case "Home" -> stage.setScene(new HomePage(stage).getHomeScene());
-            case "Worker" -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null));
+            case "Worker" -> AppNavigator.signUp(stage, null);
+            case "Recruiter" -> stage.setScene(new com.dihadi.view.recruiter.SignUpRecruiter().getRecruiterSignUpScene(() -> stage.setScene(getBusinessScene(null, null))));
             case "About Us" -> stage.setScene(new AboutUs().getAboutScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null))));
             case "Contact Us" -> stage.setScene(new ContactUs().getContactScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), () -> stage.setScene(getBusinessScene(null, null)), () -> stage.setScene(new WorkerPage().getWorkerScene(() -> stage.setScene(new HomePage(stage).getHomeScene()), null)), null));
             default -> { }
@@ -99,6 +100,8 @@ public class BusinessPage {
                 "Finding dependable, skilled labour should not be a bottleneck. DIHADI\nseamlessly connects your enterprise with verified blue-collar\nprofessionals—from specialized artisans to large-scale general\nworkforces. Mobilize with confidence, speed, and absolute\ntransparency.",
                 body(14));
         Button hire = primary("HIRE WORKERS NOW");
+        hire.setOnAction(event -> AppNavigator.open(
+                (javafx.stage.Stage) hire.getScene().getWindow(), "Recruiter"));
         VBox words = new VBox(18, eyebrow, title, copy, hire);
         words.setAlignment(Pos.CENTER_LEFT);
         words.setPrefWidth(560);

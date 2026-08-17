@@ -71,18 +71,23 @@ public class WorkerPage extends Application {
         aboutPageAction = aboutAction;
         Label eyebrow = label("WORKERS FOR EVERY JOB",
                 "-fx-font-size: 12px; -fx-font-weight: 800; -fx-text-fill: #735c00; -fx-letter-spacing: 1.3px;");
-        Label title = label("Find work that values\nyour skills.",
+        Label title = label("Find meaningful work that respects\nyour skills and supports your future.",
                 "-fx-font-size: 40px; -fx-font-weight: 800; -fx-text-fill: #3a3027; -fx-line-spacing: 4px;");
+        title.setWrapText(true);
+        title.setMaxWidth(440);
         Label intro = label(
                 "Choose your trade and explore work opportunities that match your experience. Dihadi helps skilled workers connect with the right projects.",
                 "-fx-font-size: 16px; -fx-text-fill: #4d4635; -fx-line-spacing: 3px;");
         intro.setWrapText(true);
         intro.setMaxWidth(360);
-        Button profile = primaryButton("Create Worker Profile");
-        profile.setOnAction(e -> showWorkerSignUp());
-        Button learn = outlineButton("How it works");
-        learn.setOnAction(e -> clicked("How it works"));
-        VBox copy = new VBox(16, eyebrow, title, intro, new HBox(12, profile, learn));
+        Label highlight = label("SKILLED HANDS. VERIFIED OPPORTUNITIES.",
+                "-fx-font-size:12px;-fx-font-weight:800;-fx-text-fill:#735c00;-fx-letter-spacing:1px;"
+                        + "-fx-background-color:#f1dfd2;-fx-background-radius:999px;-fx-padding:9px 13px;");
+        Label supportingText = label("Explore the trades that power every project, from essential site support to specialist craftsmanship.",
+                "-fx-font-size:14px;-fx-text-fill:#4d4635;-fx-line-spacing:3px;");
+        supportingText.setWrapText(true);
+        supportingText.setMaxWidth(360);
+        VBox copy = new VBox(16, eyebrow, title, intro, highlight, supportingText);
         copy.setAlignment(Pos.CENTER_LEFT);
         copy.setPrefWidth(360);
 
@@ -158,8 +163,8 @@ public class WorkerPage extends Application {
         // "Create Worker Profile" is the single entry point to worker signup here.
         Button login = outlineButton("Login");
         Button signUp = primaryButton("Sign Up");
-        login.setMouseTransparent(true);
-        signUp.setMouseTransparent(true);
+        login.setOnAction(e -> AppNavigator.adminLoginInProgress());
+        signUp.setOnAction(e -> AppNavigator.adminLoginInProgress());
         HBox accountActions = new HBox(10, login, signUp);
         accountActions.setAlignment(Pos.CENTER_RIGHT);
 
@@ -287,7 +292,8 @@ public class WorkerPage extends Application {
         column.setPrefWidth(150);
         for (String link : links) {
             Button button = footerLink(link);
-            button.setOnAction(event -> clicked(link));
+            button.setOnAction(event -> AppNavigator.openFooterLink(
+                    (Stage) button.getScene().getWindow(), link));
             column.getChildren().add(button);
         }
         return column;

@@ -27,6 +27,7 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -90,7 +91,14 @@ public class WokerSignUp {
         });
         Label personalDetails = label("PERSONAL DETAILS",
                 "-fx-background-color:#e8d7b6;-fx-background-radius:12px;-fx-text-fill:#4d4635;-fx-font-size:12px;-fx-font-weight:800;-fx-letter-spacing:1px;-fx-padding:11px 16px;");
-        HBox formHeading = new HBox(10, back, personalDetails);
+        Button skipTrial = new Button("SKIP FOR TRIAL");
+        skipTrial.setStyle("-fx-background-color:transparent;-fx-background-radius:12px;-fx-border-color:#735c00;-fx-border-radius:12px;"
+                + "-fx-text-fill:#735c00;-fx-font-size:12px;-fx-font-weight:800;-fx-letter-spacing:1px;-fx-padding:10px 14px;-fx-cursor:hand;");
+        skipTrial.setOnAction(event -> com.dihadi.view.AppNavigator.openFooterLink(
+                (javafx.stage.Stage) skipTrial.getScene().getWindow(), "Worker Categories"));
+        Region headingSpacer = new Region();
+        HBox.setHgrow(headingSpacer, Priority.ALWAYS);
+        HBox formHeading = new HBox(10, back, personalDetails, headingSpacer, skipTrial);
         formHeading.setAlignment(Pos.CENTER_LEFT);
         VBox card = new VBox(22, formHeading, createPhotoPicker(), createFields(), createActions());
         card.setMaxWidth(560);
