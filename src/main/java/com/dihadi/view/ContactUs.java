@@ -20,10 +20,10 @@ public class ContactUs {
         ScrollPane scroll = new ScrollPane(content);
         scroll.setFitToWidth(true);
         scroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scroll.setStyle("-fx-background-color:transparent;-fx-border-width:0;");
+        scroll.setStyle("-fx-background:#f3e7ce;-fx-background-color:#f3e7ce;-fx-border-width:0;");
         BorderPane page = new BorderPane(scroll);
         page.setTop(header());
-        page.setStyle("-fx-background-color:#fff8f0;");
+        page.setStyle("-fx-background-color:#f3e7ce;");
         return new Scene(page, 1400, 780);
     }
 
@@ -36,16 +36,17 @@ public class ContactUs {
         brand.setAlignment(Pos.CENTER_LEFT);
         Button h = nav("Home", false), b = nav("Business", false), w = nav("Worker", false), recruiter = nav("Recruiter", false), a = nav("About Us", false), contact = nav("Contact Us", true);
         h.setOnAction(e -> navigate(h, "Home")); b.setOnAction(e -> navigate(b, "Business")); w.setOnAction(e -> navigate(w, "Worker")); recruiter.setOnAction(e -> navigate(recruiter, "Recruiter")); a.setOnAction(e -> navigate(a, "About Us")); contact.setOnAction(e -> navigate(contact, "Contact Us"));
-        HBox links = new HBox(20, h, b, w, recruiter, a, contact);
+        HBox links = new HBox(12, h, b, w, recruiter, a, contact);
         links.setAlignment(Pos.CENTER);
         BorderPane bar = new BorderPane();
         bar.setLeft(brand);
         bar.setCenter(links);
         Button login = outline("Login"), signUp = primary("Sign Up");
         login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
-        bar.setRight(new HBox(12, login, signUp));
-        bar.setPadding(new Insets(16, 42, 14, 42));
-        bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
+        bar.setRight(new HBox(10, login, signUp));
+        bar.setPadding(new Insets(16, 24, 14, 24));
+        bar.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;"
+                + "-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
         return bar;
     }
     private void navigate(Button source, String destination) {
@@ -61,16 +62,16 @@ public class ContactUs {
     private void openSignUp(Button source) { javafx.stage.Stage stage=(javafx.stage.Stage)source.getScene().getWindow(); javafx.scene.Scene previous=stage.getScene(); stage.setScene(new com.dihadi.view.worker.WokerSignUp().getSignUpScene(() -> stage.setScene(previous))); }
 
     private StackPane contactHero() {
-        StackPane hero = new StackPane(image("/assets/images/business/business1.png", 1400, 810));
-        hero.setPrefHeight(810);
+        StackPane hero = new StackPane();
+        hero.setPrefHeight(620);
+        hero.setStyle("-fx-background-color:#f3e7ce;");
         HBox panel = new HBox(details(), form());
-        panel.setPrefSize(1050, 454);
         panel.setPrefSize(1050, 500);
         panel.setMinHeight(350);
         panel.setMaxWidth(1050);
 
-        panel.setStyle(
-                "-fx-background-color:#efe1c9;-fx-background-radius:25px;-fx-effect:dropshadow(gaussian,rgba(31,27,19,.26),22,0,0,9px);");
+        panel.setStyle("-fx-background-color:#f3e7ce;-fx-background-radius:25px;-fx-border-color:#d0c5af;-fx-border-radius:25px;"
+                + "-fx-effect:dropshadow(gaussian,rgba(58,48,39,.15),22,0,0,8px);");
         hero.getChildren().add(panel);
         StackPane.setAlignment(panel, Pos.CENTER);
         return hero;
@@ -83,7 +84,7 @@ public class ContactUs {
                 line("⌖", "ADDRESS", "3rd Floor, Walhekar Properties,\nCore2web Technologies, Narhe, Pune"));
         box.setPrefWidth(398);
         box.setPadding(new Insets(52, 46, 40, 46));
-        box.setStyle("-fx-background-color:#d8b52d;-fx-background-radius:25px 0 0 25px;");
+        box.setStyle("-fx-background-color:#ead8b5;-fx-background-radius:25px 0 0 25px;");
         return box;
     }
 
@@ -118,12 +119,13 @@ public class ContactUs {
         VBox msg = new VBox(8, label("Message", caption()), message);
         Button send = new Button("SEND MESSAGE");
         send.setStyle(
-                "-fx-background-color:#2c2921;-fx-background-radius:17px;-fx-text-fill:#fff8f0;-fx-font-size:12px;-fx-font-weight:800;-fx-padding:13px 28px;");
+                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#3a3027;-fx-font-size:13px;-fx-font-weight:700;-fx-padding:11px 24px;-fx-cursor:hand;");
         VBox box = new VBox(22, label("Send us a message", head(18)), grid, msg, send);
         box.setAlignment(Pos.TOP_LEFT);
         box.setPrefWidth(650);
         box.setPadding(new Insets(52, 48, 40, 48));
         box.setPadding(new Insets(42, 48, 32, 48));
+        box.setStyle("-fx-background-color:#f8eedb;-fx-background-radius:0 25px 25px 0;");
         return box;
     }
 
@@ -140,7 +142,7 @@ public class ContactUs {
     }
 
     private String input() {
-        return "-fx-background-color:#e3e5e9;-fx-background-radius:0;-fx-border-color:transparent transparent #342f28 transparent;-fx-border-width:0 0 1px 0;-fx-font-family:Georgia;-fx-font-size:14px;-fx-prompt-text-fill:#687080;-fx-padding:10px 12px;";
+        return "-fx-background-color:#f3e7ce;-fx-background-radius:10px;-fx-border-color:#c6a15b;-fx-border-radius:10px;-fx-border-width:1px;-fx-font-family:Georgia;-fx-font-size:14px;-fx-prompt-text-fill:#806c47;-fx-padding:10px 12px;";
     }
 
     private VBox actions() {
@@ -150,12 +152,12 @@ public class ContactUs {
                         "BECOME A PARTNER", "#2f2c24", true),
                 action("Discover Dignified\nOpportunities",
                         "Connect with 12,000+ Active Employers seeking reliable and\nskilled workforce.",
-                        "POST A REQUIREMENT", "#d5b143", false));
+                        "POST A REQUIREMENT", "#ead8b5", false));
         cards.setAlignment(Pos.CENTER);
         VBox section = new VBox(cards);
         section.setAlignment(Pos.CENTER);
         section.setPadding(new Insets(78, 42, 78, 42));
-        section.setStyle("-fx-background-color:#fff8f0;");
+        section.setStyle("-fx-background-color:#f3e7ce;");
         return section;
     }
 
@@ -241,21 +243,21 @@ public class ContactUs {
         Button b = new Button(t);
         b.setStyle("-fx-background-color:transparent;-fx-font-size:13px;-fx-font-weight:700;-fx-text-fill:"
                 + (on ? "#735c00" : "#4d4635") + ";-fx-border-color:" + (on ? "#735c00" : "transparent")
-                + ";-fx-border-width:0 0 2px 0;-fx-padding:8px 4px;");
+                + ";-fx-border-width:0 0 2px 0;-fx-font-family:'Segoe UI',sans-serif;-fx-padding:8px 4px;-fx-cursor:hand;");
         return b;
     }
 
     private Button primary(String t) {
         Button b = new Button(t);
         b.setStyle(
-                "-fx-background-color:#d4af37;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;");
+                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#3a3027;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:10px 20px;-fx-cursor:hand;");
         return b;
     }
 
     private Button outline(String t) {
         Button b = new Button(t);
         b.setStyle(
-                "-fx-background-color:transparent;-fx-background-radius:18px;-fx-border-color:#806c47;-fx-border-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:700;-fx-padding:10px 23px;");
+                "-fx-background-color:#fbf3e5;-fx-background-radius:18px;-fx-border-color:#c6a15b;-fx-border-radius:18px;-fx-text-fill:#735c00;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:9px 18px;-fx-cursor:hand;");
         return b;
     }
 

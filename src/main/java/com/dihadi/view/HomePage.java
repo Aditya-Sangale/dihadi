@@ -95,7 +95,7 @@ public class HomePage extends Application {
         HBox brand = new HBox(10, logo, name);
         brand.setAlignment(Pos.CENTER_LEFT);
 
-        HBox navigation = new HBox(9,
+        HBox navigation = new HBox(12,
                 navButton("Home", true, this::showHome),
                 navButton("Business", false, this::showBusiness),
                 navButton("Worker", false, this::showWorker),
@@ -252,7 +252,18 @@ public class HomePage extends Application {
         return button;
     }
     private Button outlineButton(String text) { Button button = new Button(text); button.setStyle("-fx-background-color:#fbf3e5;-fx-background-radius:18px;-fx-border-color:#c6a15b;-fx-border-radius:18px;-fx-text-fill:#735c00;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:9px 18px;-fx-cursor:hand;"); return button; }
-    private Button navButton(String text, boolean active, Runnable action) { Button button = new Button(text); button.setOnAction(event -> action.run()); button.setStyle("-fx-background-color:#d8c39d;-fx-background-radius:16px;-fx-font-size:13px;-fx-font-weight:700;-fx-text-fill:" + (active ? "#735c00" : "#4d4635") + ";-fx-border-color:" + (active ? "#735c00" : "transparent") + ";-fx-border-radius:16px;-fx-padding:8px 11px;-fx-cursor:hand;"); return button; }
+    /** Matches the transparent, underline-based navigation used by Worker and About Us. */
+    private Button navButton(String text, boolean active, Runnable action) {
+        Button button = new Button(text);
+        button.setOnAction(event -> action.run());
+        String state = active
+                ? "-fx-text-fill:#735c00;-fx-border-color:#735c00;"
+                : "-fx-text-fill:#4d4635;-fx-border-color:transparent;";
+        button.setStyle("-fx-background-color:transparent;-fx-background-radius:0;"
+                + "-fx-font-family:'Segoe UI',sans-serif;-fx-font-size:13px;-fx-font-weight:700;"
+                + "-fx-border-width:0 0 2px 0;-fx-padding:8px 4px;-fx-cursor:hand;" + state);
+        return button;
+    }
     private void prepareLogo(ImageView logo) {
         logo.setViewport(new Rectangle2D(380, 0, 840, 840));
         logo.setFitWidth(62);
