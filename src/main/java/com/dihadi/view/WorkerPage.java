@@ -1,13 +1,13 @@
 package com.dihadi.view;
 
-import com.dihadi.view.worker.GeneralLabourPage;
-import com.dihadi.view.worker.Site_Supervisor;
-import com.dihadi.view.worker.ElectricianPage;
-import com.dihadi.view.worker.mason.MasonPage;
-import com.dihadi.view.worker.PlumberPage;
-import com.dihadi.view.worker.CarpenterPage;
-import com.dihadi.view.worker.ITI_Technician;
-import com.dihadi.view.worker.PainterPage;
+import com.dihadi.view.worker.GeneralLabour.GeneralLabourPage;
+import com.dihadi.view.worker.Electrician.ElectricianPage;
+import com.dihadi.view.worker.Mason.MasonPage;
+import com.dihadi.view.worker.Plumber.PlumberPage;
+import com.dihadi.view.worker.Carpenter.CarpenterPage;
+import com.dihadi.view.worker.ITI_Technician.ITI_Technician;
+import com.dihadi.view.worker.Site_Supervisor.Site_Supervisor;
+import com.dihadi.view.worker.Painter.PainterPage;
 import com.dihadi.view.recruiter.SignUpRecruiter;
 import com.dihadi.view.worker.WokerSignUp;
 

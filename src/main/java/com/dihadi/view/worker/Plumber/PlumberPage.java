@@ -1,4 +1,4 @@
-package com.dihadi.view.worker;
+package com.dihadi.view.worker.Plumber;
 
 import javafx.stage.Stage;
 
@@ -161,7 +161,11 @@ public class PlumberPage {
         });
         Region r = new Region();
         HBox.setHgrow(r, Priority.ALWAYS);
-        Button n = pr("SAVE & NEXT");
+        Button n = pr("SAVE & CONTINUE");
+        n.setOnAction(e -> {
+            javafx.stage.Stage stage = (javafx.stage.Stage) n.getScene().getWindow();
+            stage.setScene(new PlumberJobRole().getPlumberJobRoleScene(back));
+        });
         HBox bar = new HBox(x, r, n);
         bar.setAlignment(Pos.CENTER);
         bar.setPadding(new Insets(16, 70, 16, 70));

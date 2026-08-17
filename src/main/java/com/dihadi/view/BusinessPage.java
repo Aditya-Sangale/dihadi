@@ -47,7 +47,7 @@ public class BusinessPage {
         scroll.setStyle("-fx-background-color:transparent;-fx-border-width:0;");
         BorderPane page = new BorderPane(scroll);
         page.setTop(header());
-        page.setStyle("-fx-background-color:transparent;");
+        page.setStyle("-fx-background-color:#f3e7ce;");
         StackPane root = new StackPane(page);
         root.setPadding(new Insets(24));
         root.setStyle("-fx-background-color:#f3e7ce;");
@@ -64,7 +64,7 @@ public class BusinessPage {
 
         Button home = nav("Home", false), business = nav("Business", true), worker = nav("Worker", false), recruiter = nav("Recruiter", false), about = nav("About Us", false), contact = nav("Contact Us", false);
         home.setOnAction(e -> navigate(home, "Home")); business.setOnAction(e -> navigate(business, "Business")); worker.setOnAction(e -> navigate(worker, "Worker")); recruiter.setOnAction(e -> navigate(recruiter, "Recruiter")); about.setOnAction(e -> navigate(about, "About Us")); contact.setOnAction(e -> navigate(contact, "Contact Us"));
-        HBox navigation = new HBox(20, home, business, worker, recruiter, about, contact);
+        HBox navigation = new HBox(12, home, business, worker, recruiter, about, contact);
         navigation.setAlignment(Pos.CENTER);
         Button login = outline("Login"), signUp = primary("Sign Up");
         login.setOnAction(e -> openSignUp(login)); signUp.setOnAction(e -> openSignUp(signUp));
@@ -76,7 +76,8 @@ public class BusinessPage {
         bar.setCenter(navigation);
         bar.setRight(account);
         bar.setPadding(new Insets(16, 42, 14, 42));
-        bar.setStyle("-fx-background-color:#fff8f0;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;");
+        bar.setStyle("-fx-background-color:#f3e7ce;-fx-border-color:#d0c5af;-fx-border-width:0 0 1px 0;"
+                + "-fx-effect:dropshadow(gaussian,rgba(58,48,39,.10),10,.28,0,1.5px);");
         return bar;
     }
     private void navigate(Button source, String destination) {
@@ -205,9 +206,7 @@ public class BusinessPage {
         divider.setPrefWidth(390);
         Label one = label(first, "-fx-font-size:15px;-fx-font-weight:700;-fx-text-fill:" + text + ";");
         Label two = label(second, "-fx-font-size:15px;-fx-font-weight:700;-fx-text-fill:" + text + ";");
-        Button button = new Button(action);
-        button.setStyle("-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#342f28;"
-                + "-fx-font-size:12px;-fx-font-weight:700;-fx-padding:11px 22px;-fx-cursor:hand;");
+        Button button = primary(action);
         VBox card = new VBox(16, heading, subtitle, divider, one, two, spacer(24), button);
         card.setAlignment(Pos.TOP_LEFT);
         card.setPadding(new Insets(44));
@@ -316,14 +315,14 @@ public class BusinessPage {
     private Button primary(String text) {
         Button button = new Button(text);
         button.setStyle(
-                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:800;-fx-padding:11px 24px;-fx-cursor:hand;");
+                "-fx-background-color:#d8c39d;-fx-background-radius:18px;-fx-text-fill:#3a3027;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:10px 20px;-fx-cursor:hand;");
         return button;
     }
 
     private Button outline(String text) {
         Button button = new Button(text);
         button.setStyle(
-                "-fx-background-color:transparent;-fx-background-radius:18px;-fx-border-color:#806c47;-fx-border-radius:18px;-fx-text-fill:#342f28;-fx-font-size:13px;-fx-font-weight:700;-fx-padding:10px 23px;-fx-cursor:hand;");
+                "-fx-background-color:#fbf3e5;-fx-background-radius:18px;-fx-border-color:#c6a15b;-fx-border-radius:18px;-fx-text-fill:#735c00;-fx-font-size:14px;-fx-font-weight:700;-fx-padding:9px 18px;-fx-cursor:hand;");
         return button;
     }
 
