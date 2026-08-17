@@ -3,7 +3,7 @@ package com.dihadi.view;
 import com.dihadi.view.worker.GeneralLabourPage;
 import com.dihadi.view.worker.Site_Supervisor;
 import com.dihadi.view.worker.ElectricianPage;
-import com.dihadi.view.worker.MasonPage;
+import com.dihadi.view.worker.mason.MasonPage;
 import com.dihadi.view.worker.PlumberPage;
 import com.dihadi.view.worker.CarpenterPage;
 import com.dihadi.view.worker.ITI_Technician;
