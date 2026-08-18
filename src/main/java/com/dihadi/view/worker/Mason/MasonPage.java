@@ -1,4 +1,4 @@
-package com.dihadi.view.worker.Mason;
+package com.dihadi.view.worker.mason;
 
 import java.util.*;
 import javafx.geometry.*;
